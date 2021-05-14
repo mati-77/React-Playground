@@ -8,6 +8,8 @@ import {
 } from "react-router-dom";
 import NavBar from './Componentes/Navegacion';
 
+import Home from './Vistas/Home';
+
 function App() {
   return (
     <Router>
@@ -32,9 +34,6 @@ function App() {
   );
 }
 
-function Home() {
-  return <h2>Home</h2>;
-}
 
 function Simon() {
   return <h2>Simon</h2>;
