@@ -9,18 +9,19 @@ import {
 import NavBar from './Componentes/Navegacion';
 
 import Home from './Vistas/Home';
+import SimonDice from './Vistas/SimonDice';
+
+
 
 function App() {
+
   return (
     <Router>
       <div>
         <NavBar />
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/simon">
-            <Simon />
+              <SimonDice />
           </Route>
           <Route path="/post">
             <Post />

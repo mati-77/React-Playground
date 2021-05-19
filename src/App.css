@@ -1,3 +1,33 @@
 .icon-height {
     height: 2rem;
 }
+
+.contenedor-luces {
+    height: 16rem;
+    width: 16rem;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(2, 50%);
+    background-color: aquamarine;
+    border-radius: 50%;
+}
+
+.luz-verde {
+    background-color: greenyellow;
+    border-top-left-radius: 100%;
+}
+
+.luz-roja {
+    background-color: red;
+    border-top-right-radius: 100%;
+}
+
+.luz-amarilla {
+    background-color: yellow;
+    border-bottom-left-radius: 100%;
+}
+
+.luz-azul {
+    background-color: blue;
+    border-bottom-right-radius: 100%;
+}
