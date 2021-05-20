@@ -31,3 +31,19 @@
     background-color: blue;
     border-bottom-right-radius: 100%;
 }
+
+.verde-iluminada {
+    background-color: #d7ff9a;
+}
+
+.roja-iluminada {
+    background-color: #f15e5e;
+}
+
+.amarilla-iluminada {
+    background-color: #f7f75f;
+}
+
+.azul-iluminada {
+    background-color: #5050fb;
+}
