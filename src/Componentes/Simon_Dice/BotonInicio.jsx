@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { SimonContext } from '../../contexts/SimonContext';
 
 export default function BotonInicio() {
 
-    const {encendido, setIniciar, finalizar, setFinalizar} = useContext(SimonContext)
+    const {setIniciar, finalizar, setFinalizar} = useContext(SimonContext)
  
     let clases = `btn btn-success text-nowrap btn-sm w-30 ${finalizar ? '' : 'disabled'}`
 

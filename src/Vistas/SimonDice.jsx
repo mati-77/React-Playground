@@ -24,39 +24,48 @@ export default function SimonDice() {
 
     const state = {iniciar, setIniciar, finalizar, setFinalizar, estadoLuzVerde, setEstadoLuzVerde, estadoLuzRoja, setEstadoLuzRoja, estadoLuzAmarilla, setEstadoLuzAmarilla, estadoLuzAzul, setEstadoLuzAzul}
 
-   
-
-    /* function iluminarApagar(luz) {
-        luz()
-        setTimeout(() => {
-            luz('')
-        }, 350);
-    }
-
-    function iluminarSecuencia() {
-        for (let i = 0; i < nivel; i++) {
-            let luz = numeroAColor(secuencia[i]);
-            setTimeout(() => iluminarApagar(luz), 1000 * i)
-        }
-    } */
-
-
     
 
     const nivel = useRef('')
 
+    const timeOuts = useRef([])
+
+    const NIVEL_MAXIMO = 10
+
     
     useEffect(() => {
+
         
-        let secuencia = new Array(10).fill(0).map(n => Math.floor(Math.random()*4 + 1))
+        
+        
+
+        if(finalizar) {
+            function cancelarTimeOuts(otro) {
+                let cosa = otro()
+                console.log(cosa)
+                clearTimeout(cosa)
+            }
+
+
+            for (let j = 0; j < nivel.current; j++) {
+                /* let aCancelar = timeOuts.current[j] */
+                cancelarTimeOuts(timeOuts.current[j])
+                /* clearTimeout(aCancelar) */
+            }
+            timeOuts.current = []
+            console.log(timeOuts.current)
+        }
 
         if (iniciar) {
-            nivel.current = 4
+            let secuencia = new Array(NIVEL_MAXIMO).fill(0).map(n => Math.floor(Math.random()*4 + 1))
+            nivel.current = 4; /*valor con propósito de pruebas*/
             console.log(secuencia)
-            console.log(nivel.current)
+            /* llenarArray() */
+            console.log(timeOuts.current)
             iluminarSecuencia()
+            iluminarSecuencia2()
 
-            /* function numeroAColor(numero) {
+            function encenderLuz(numero) {
                 switch (numero) {
                     case 1:
                         return setEstadoLuzVerde('verde-iluminada') 
@@ -67,45 +76,74 @@ export default function SimonDice() {
                     case 4:
                         return setEstadoLuzAzul('azul-iluminada')
                 }
-            } */
-
-            let estadosLucesIlum = {
-                1: setEstadoLuzVerde('verde-iluminada'),
-                2: setEstadoLuzRoja('roja-iluminada'),
-                3: setEstadoLuzAmarilla('amarilla-iluminada'),
-                4: setEstadoLuzAzul('azul-iluminada')
             }
 
-            let estadosLucesApag = {
-                1: setEstadoLuzVerde(''),
-                2: setEstadoLuzRoja(''),
-                3: setEstadoLuzAmarilla(''),
-                4: setEstadoLuzAzul('')
-            }
-
-            function iluminarApagar(numeroLuz) {
-                
-                /* estadosLucesIlum[numeroLuz]
-                setTimeout(() => {
-                    estadosLucesApag[numeroLuz]
-                }, 350) */
-            }
-        
-            function iluminarSecuencia() {
-                console.log('hola hola')
-                console.log(nivel.current)
-                for (let i = 0; i < nivel.current; i++) {
-                    let luz = secuencia[i];
-                    setTimeout(() => iluminarApagar(luz.toString()), 1000 * i)
+            function apagarLuz(numero) {
+                switch (numero) {
+                    case 1:
+                        return setEstadoLuzVerde('') 
+                    case 2:
+                        return setEstadoLuzRoja('')
+                    case 3:
+                        return setEstadoLuzAmarilla('')
+                    case 4:
+                        return setEstadoLuzAzul('')
                 }
             }
 
+            function iluminarApagar(numeroLuz) { 
+                
+                encenderLuz(numeroLuz)
+                setTimeout(() => {
+                apagarLuz(numeroLuz)
+                }, 350)
+            }
+
+            function iniciarTimeOuts(aIniciar) {
+               aIniciar()
+               
+            } 
 
             
 
+            /* function llenarArray(recibida) {
+                let arrayMap = recibida.map((elemento, posicion) => {
+                    elemento = setTimeout(() => iluminarApagar(elemento), 1000 * posicion)
+                    return elemento
+                })
+                return arrayMap
+            } */
+            
+
         
+            function iluminarSecuencia() {
+                for (let i = 0; i < nivel.current; i++) {
+                    let luz = secuencia[i];
+                    timeOuts.current.push(function () { return(setTimeout(() => iluminarApagar(luz), 1000 * i)) })
+                    /* timeOuts.current.push(setTimeout(() => iluminarApagar(luz), 1000 * i)) */
+                    /* clearTimeout(timeOuts.current[i]) */
+                    /* console.log(timeOuts.current) */
+                    /* timeOuts.current[i]() */ /*funciona! */
+                    /* iniciarTimeOuts(timeOuts.current[i]) */ /*volver a activar si funciona*/
+                }
+                console.log(timeOuts.current)
+
+                /* timeOuts.current = [] */ /*reiniciar el array aca hace que no se pueda detener el juego con el boton de finalizar*/
+
+            }
+
+            function iluminarSecuencia2() {
+                for (let x = 0; x < nivel.current; x++) {
+                    iniciarTimeOuts(timeOuts.current[x])
+                    /* timeOuts.current[x] */
+                    
+                }
+                console.log('ilum sec 2')
+            }
+
+            
         }
-    }, [iniciar])
+    }, [iniciar, finalizar])
 
 
     return (

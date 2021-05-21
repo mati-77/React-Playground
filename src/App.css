@@ -32,6 +32,7 @@
     border-bottom-right-radius: 100%;
 }
 
+
 .verde-iluminada {
     background-color: #d7ff9a;
 }
@@ -46,4 +47,21 @@
 
 .azul-iluminada {
     background-color: #5050fb;
+}
+
+
+.luz-verde-bloqueada {
+    background-color: greenyellow !important;
+}
+
+.luz-roja-bloqueada {
+    background-color: red !important;
+}
+
+.luz-amarilla-bloqueada {
+    background-color: yellow !important;
+}
+
+.luz-azul-bloqueada {
+    background-color: blue !important;
 }
