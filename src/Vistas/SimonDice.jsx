@@ -40,17 +40,14 @@ export default function SimonDice() {
         
 
         if(finalizar) {
-            function cancelarTimeOuts(otro) {
-                let cosa = otro()
+            function cancelarTimeOuts(cosa) {
                 console.log(cosa)
                 clearTimeout(cosa)
             }
 
 
             for (let j = 0; j < nivel.current; j++) {
-                /* let aCancelar = timeOuts.current[j] */
                 cancelarTimeOuts(timeOuts.current[j])
-                /* clearTimeout(aCancelar) */
             }
             timeOuts.current = []
             console.log(timeOuts.current)
@@ -60,10 +57,7 @@ export default function SimonDice() {
             let secuencia = new Array(NIVEL_MAXIMO).fill(0).map(n => Math.floor(Math.random()*4 + 1))
             nivel.current = 4; /*valor con propósito de pruebas*/
             console.log(secuencia)
-            /* llenarArray() */
             console.log(timeOuts.current)
-            iluminarSecuencia()
-            iluminarSecuencia2()
 
             function encenderLuz(numero) {
                 switch (numero) {
@@ -99,48 +93,18 @@ export default function SimonDice() {
                 }, 350)
             }
 
-            function iniciarTimeOuts(aIniciar) {
-               aIniciar()
-               
-            } 
 
-            
-
-            /* function llenarArray(recibida) {
-                let arrayMap = recibida.map((elemento, posicion) => {
-                    elemento = setTimeout(() => iluminarApagar(elemento), 1000 * posicion)
-                    return elemento
-                })
-                return arrayMap
-            } */
-            
-
-        
             function iluminarSecuencia() {
+                timeOuts.current = []
+
                 for (let i = 0; i < nivel.current; i++) {
                     let luz = secuencia[i];
-                    timeOuts.current.push(function () { return(setTimeout(() => iluminarApagar(luz), 1000 * i)) })
-                    /* timeOuts.current.push(setTimeout(() => iluminarApagar(luz), 1000 * i)) */
-                    /* clearTimeout(timeOuts.current[i]) */
-                    /* console.log(timeOuts.current) */
-                    /* timeOuts.current[i]() */ /*funciona! */
-                    /* iniciarTimeOuts(timeOuts.current[i]) */ /*volver a activar si funciona*/
+                    timeOuts.current.push(setTimeout(() => iluminarApagar(luz), 1000 * i))
                 }
                 console.log(timeOuts.current)
-
-                /* timeOuts.current = [] */ /*reiniciar el array aca hace que no se pueda detener el juego con el boton de finalizar*/
-
             }
 
-            function iluminarSecuencia2() {
-                for (let x = 0; x < nivel.current; x++) {
-                    iniciarTimeOuts(timeOuts.current[x])
-                    /* timeOuts.current[x] */
-                    
-                }
-                console.log('ilum sec 2')
-            }
-
+            iluminarSecuencia()
             
         }
     }, [iniciar, finalizar])
