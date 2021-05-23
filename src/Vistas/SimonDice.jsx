@@ -6,9 +6,6 @@ import BotonInicio from '../Componentes/Simon_Dice/BotonInicio';
 import BotonFinalizar from '../Componentes/Simon_Dice/BotonFinalizar';
 import LucesSimon from '../Componentes/Simon_Dice/LucesSimon';
 
-/* import { LuzVerde, mostrar } from '../Componentes/Simon_Dice/LuzVerde'; */
-
-
 
 
 export default function SimonDice() {
@@ -22,38 +19,38 @@ export default function SimonDice() {
     const [estadoLuzAzul, setEstadoLuzAzul] = useState('')
     
 
-    /* const [nivel, setNivel] = useState('') */
-
-    const botonVerde = useRef()
-    const numeroDeBotonVerde = useRef(0)
-    const botonRojo = useRef()
-    const botonAmarillo = useRef()
-    const botonAzul = useRef()
     const botonDeFin = useRef()
+
+    const numeroDeBoton = useRef(0)
 
     const nivel = useRef('')
 
-    const state = {iniciar, setIniciar, finalizar, setFinalizar, estadoLuzVerde, setEstadoLuzVerde, estadoLuzRoja, setEstadoLuzRoja, estadoLuzAmarilla, setEstadoLuzAmarilla, estadoLuzAzul, setEstadoLuzAzul, botonVerde, botonRojo, botonAmarillo, botonAzul, botonDeFin, nivel, numeroDeBotonVerde}
+    const clickBoton = useRef()
 
-    
+    const state = {
+        iniciar, setIniciar, 
+        finalizar, setFinalizar, 
+        estadoLuzVerde, setEstadoLuzVerde, 
+        estadoLuzRoja, setEstadoLuzRoja, 
+        estadoLuzAmarilla, setEstadoLuzAmarilla, 
+        estadoLuzAzul, setEstadoLuzAzul, 
+        botonDeFin, 
+        nivel, 
+        numeroDeBoton, 
+        clickBoton
+    }
 
     
     const subNivel = useRef()
 
     const timeOuts = useRef([])
-    
-    console.log(numeroDeBotonVerde.current)
 
-    const NIVEL_MAXIMO = 10
+    const NIVEL_MAXIMO = 3
 
-    /* console.log(botonVerde) */
 
-    
     useEffect(() => {
 
-        let secuencia = new Array(NIVEL_MAXIMO).fill(0).map(n => Math.floor(Math.random()*4 + 1))
-
-
+        clickBoton.current = function () {}
 
         function encenderLuz(numero) {
             switch (numero) {
@@ -86,37 +83,7 @@ export default function SimonDice() {
             encenderLuz(numeroLuz)
             setTimeout(() => {
             apagarLuz(numeroLuz)
-            }, 350)
-        }
-
-        function colorANumero(color) {
-            switch (color) {
-                case 'verde':
-                    return 1 
-                case 'rojo':
-                    return 2
-                case 'amarillo':
-                    return 3
-                case 'azul':
-                    return 4
-            }
-        }
-
-        /*los event listeners son innecesarios. reemplazar por actualizacion de variables en useRefs */
-        var agregarEventos = function() {
-            botonVerde.current.addEventListener('click', elegirColor)
-            botonRojo.current.addEventListener('click', elegirColor)
-            botonAmarillo.current.addEventListener('click', elegirColor)
-            botonAzul.current.addEventListener('click', elegirColor)
-            console.log('añadi los events')
-        }
-
-        var eliminarEventos = function() {
-            botonVerde.current.removeEventListener('click', elegirColor)
-            botonRojo.current.removeEventListener('click', elegirColor)
-            botonAmarillo.current.removeEventListener('click', elegirColor)
-            botonAzul.current.removeEventListener('click', elegirColor)
-            console.log('elimine los events')
+            }, 300)
         }
 
         function ganoElJuego() {
@@ -127,83 +94,73 @@ export default function SimonDice() {
 
         function perdioElJuego() {
             alert(`Perdiste en el nivel ${nivel.current}/10. Volvé a intentarlo`)
-            eliminarEventos()
             nivel.current = ''
             botonDeFin.current.click()
         }
 
-        function elegirColor(ev) {
-            console.log(this)
-            const nombreDelColor = ev.target.dataset.color;
-            const numeroDelColor = colorANumero(nombreDelColor)
-            iluminarApagar(numeroDelColor)
-
-            if(numeroDelColor === secuencia[subNivel.current]) {
-                subNivel.current++
-                console.log(subNivel.current)
-                if(subNivel.current === nivel.current) {
-                    nivel.current++
-                    eliminarEventos()
-                    if(nivel.current === (NIVEL_MAXIMO + 1)) {
-                        ganoElJuego()
-                    } else {
-                        setTimeout(() => iluminarSecuencia(), 1600); 
-                    }
-                }
-            } else {
-                perdioElJuego()
-            }
-
-        }
-
-        
-
-        function iluminarSecuencia() {
-            subNivel.current = 0
-            timeOuts.current = []
-
-            for (let i = 0; i < nivel.current; i++) {
-                let luz = secuencia[i];
-                timeOuts.current.push(setTimeout(() => iluminarApagar(luz), 1000 * i))
-            }
-            console.log(timeOuts.current)
-
-            setTimeout(() => agregarEventos(), 1000 * nivel.current)
-            
-        }
-        
         function cancelarTimeOuts(aFinalizar) {
                 clearTimeout(aFinalizar)
-            }
+        }
 
+        
 
         if (finalizar) {
-            console.log(this)
-            eliminarEventos()
-            for (let j = 0; j < nivel.current; j++) {
-                cancelarTimeOuts(timeOuts.current[j])
-            }
+            clickBoton.current = function () {}
+            timeOuts.current.forEach((item) => cancelarTimeOuts(item))
             
             timeOuts.current = []
             nivel.current = ''
-            console.log(timeOuts.current)
             console.log('se detuvo la app')
         }
 
         if (iniciar) {
-            /* let secuencia = new Array(NIVEL_MAXIMO).fill(0).map(n => Math.floor(Math.random()*4 + 1)) */
-            nivel.current = 1; /*valor con propósito de pruebas*/
+            let secuencia = new Array(NIVEL_MAXIMO).fill(0).map(n => Math.floor(Math.random()*4 + 1))
+            nivel.current = 1
             console.log(secuencia)
-            console.log(timeOuts.current)
+            /* console.log(timeOuts.current) */
 
-            
+            function iluminarSecuencia() {
+                subNivel.current = 0
+                timeOuts.current = []
 
-            setTimeout(() => iluminarSecuencia(), 1000)
-            
+    
+                for (var i = 0; i < nivel.current; i++) {
+                    let luz = secuencia[i];
+                    timeOuts.current.push(setTimeout(() => iluminarApagar(luz), 1000 * i))
+                }
+
+                setTimeout(() => {
+                    clickBoton.current = function () {
+                    const numeroDelColor = numeroDeBoton.current
+                    iluminarApagar(numeroDelColor)
+
+                    if(numeroDelColor === secuencia[subNivel.current]) {
+                        subNivel.current++
+                        if(subNivel.current === nivel.current) {
+                            nivel.current++
+                            if(nivel.current === (NIVEL_MAXIMO + 1)) {
+                                ganoElJuego()
+                            } else {
+                                clickBoton.current = function () {}
+                                setTimeout(() => iluminarSecuencia(), 1600); 
+                            }
+                        }
+                    } else {
+                        perdioElJuego()
+                    }
+                    }
+                }, 1000 * nivel.current)
+
+            }
+
+
+            setTimeout(() => iluminarSecuencia(), 1000) 
         }
 
         
     }, [iniciar, finalizar])
+
+    
 
 
     return (
