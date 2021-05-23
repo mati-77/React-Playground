@@ -3,11 +3,11 @@ import { SimonContext } from '../../contexts/SimonContext';
 
 export default function LuzRoja() {
 
-    const {estadoLuzRoja} = useContext(SimonContext)
+    const {estadoLuzRoja, botonRojo} = useContext(SimonContext)
 
     let clasesLuzRoja = `luz-roja ${estadoLuzRoja}`
 
     return (
-        <div id="roja" className={clasesLuzRoja}></div>
+        <div id="roja" className={clasesLuzRoja} ref={botonRojo} data-color="rojo"></div>
     )
 }

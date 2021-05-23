@@ -4,7 +4,7 @@ import LuzVerde from './LuzVerde';
 import LuzAmarilla from './LuzAmarilla';
 import LuzAzul from './LuzAzul';
 
-export default function Luces() {
+export default function LucesSimon() {
     return (
         <div className="contenedor-luces">
             <LuzVerde />
