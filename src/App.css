@@ -1,5 +1,10 @@
-.icon-height {
-    height: 2rem;
+.contenedor-app-simon {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #dc3545;
 }
 
 .contenedor-luces {
@@ -8,27 +13,43 @@
     display: grid;
     grid-template-columns: repeat(2, 50%);
     grid-template-rows: repeat(2, 50%);
-    background-color: aquamarine;
     border-radius: 50%;
 }
 
+.contenedor-inicio-finalizar {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.contenedor-nivel-aviso-luces {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 .luz-verde {
-    background-color: greenyellow;
+    background-color: #9af311;
     border-top-left-radius: 100%;
 }
 
 .luz-roja {
-    background-color: red;
+    background-color: #ff0000;
     border-top-right-radius: 100%;
 }
 
 .luz-amarilla {
-    background-color: yellow;
+    background-color: #ffff00;
     border-bottom-left-radius: 100%;
 }
 
 .luz-azul {
-    background-color: blue;
+    background-color: #0000ff;
     border-bottom-right-radius: 100%;
 }
 
@@ -42,7 +63,7 @@
 }
 
 .amarilla-iluminada {
-    background-color: #f7f75f;
+    background-color: #fbfb98;
 }
 
 .azul-iluminada {
@@ -50,18 +71,22 @@
 }
 
 
-.luz-verde-bloqueada {
-    background-color: greenyellow !important;
-}
+  @media screen and (min-width: 640px) and (max-width: 767px) and (orientation: landscape) {
+    .contenedor-app-simon {
+        flex-direction: row;
+    }
 
-.luz-roja-bloqueada {
-    background-color: red !important;
-}
+    .contenedor-luces {
+        height: 14rem;
+        width: 14rem;
+    }
+    
+    .contenedor-nivel-aviso-luces {
+        height: 100%;
+        width: 50%;
+        justify-content: center;
+    }
+  }
 
-.luz-amarilla-bloqueada {
-    background-color: yellow !important;
-}
 
-.luz-azul-bloqueada {
-    background-color: blue !important;
-}
+

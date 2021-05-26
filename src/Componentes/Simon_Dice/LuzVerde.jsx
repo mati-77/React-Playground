@@ -15,7 +15,7 @@ export default function LuzVerde() {
     }
 
     return (
-        <div id="verde" className={clasesLuzVerde} data-color="verde" onClick={devolverNumeroYActivar}></div>
+        <div className={clasesLuzVerde} data-color="verde" onClick={devolverNumeroYActivar}></div>
     )
 }
 

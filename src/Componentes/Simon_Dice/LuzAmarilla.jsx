@@ -13,6 +13,6 @@ export default function LuzAmarilla() {
     }
 
     return (
-        <div id="amarilla" className={clasesLuzAmarilla} data-color="amarillo" onClick={devolverNumeroYActivar}></div>
+        <div className={clasesLuzAmarilla} data-color="amarillo" onClick={devolverNumeroYActivar}></div>
     )
 }

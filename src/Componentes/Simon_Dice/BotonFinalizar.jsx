@@ -5,7 +5,7 @@ export default function BotonFinalizar() {
 
     const {setFinalizar, iniciar, setIniciar, botonDeFin, nivel } = useContext(SimonContext)
 
-    let clases = `btn btn-warning text-nowrap btn-sm w-30 ${iniciar ? '' : 'disabled'}`
+    let clases = `btn btn-warning text-nowrap w-30 ${iniciar ? '' : 'disabled'}`
 
     function fin() {
         setFinalizar(true)
@@ -17,6 +17,6 @@ export default function BotonFinalizar() {
     y cambia el estado iniciar (este boton se vuelve no disponible).*/
 
     return (
-        <button id="fin" type="button" ref={botonDeFin} onClick={fin} className={clases}>Finalizar el juego</button>
+        <button type="button" ref={botonDeFin} onClick={fin} className={clases}>Finalizar el juego</button>
     )
 }

@@ -4,7 +4,11 @@ import { SimonContext } from '../contexts/SimonContext';
 
 import BotonInicio from '../Componentes/Simon_Dice/BotonInicio';
 import BotonFinalizar from '../Componentes/Simon_Dice/BotonFinalizar';
-import LucesSimon from '../Componentes/Simon_Dice/LucesSimon';
+
+import LuzVerde from '../Componentes/Simon_Dice/LuzVerde';
+import LuzRoja from '../Componentes/Simon_Dice/LuzRoja';
+import LuzAmarilla from '../Componentes/Simon_Dice/LuzAmarilla';
+import LuzAzul from '../Componentes/Simon_Dice/LuzAzul';
 
 
 
@@ -17,14 +21,18 @@ export default function SimonDice() {
     const [estadoLuzRoja, setEstadoLuzRoja] = useState('')
     const [estadoLuzAmarilla, setEstadoLuzAmarilla] = useState('')
     const [estadoLuzAzul, setEstadoLuzAzul] = useState('')
-    
 
+    const [aviso, setAviso] = useState()
+    
+    /*referencia al boton "Finalizar el juego"*/
     const botonDeFin = useRef()
 
+    /*Acá es donde se guarda el numero que devuelva cada luz al ser presionada*/
     const numeroDeBoton = useRef(0)
 
     const nivel = useRef('')
 
+    /*Acá es en donde, posteriormente, se guardará una función con la lógica necesaria para habilitar el click sobre las luces, y decidir si el usuario pasó de nivel o no*/
     const clickBoton = useRef()
 
     const state = {
@@ -43,14 +51,18 @@ export default function SimonDice() {
     
     const subNivel = useRef()
 
+    /*Acá se va a guardar un array con los setTimeouts que haran posible la iluminación con el ritmo apropiado. Se los guarda en un array para poder cancelarlos a gusto con clearTimeout*/
     const timeOuts = useRef([])
 
-    const NIVEL_MAXIMO = 3
+    /*Como la logica para presionar las luces esta dentro de un setTimeout, lo guardo acá para poder cancelar ese timeout si el usuario decide finalizar el juego*/
+    const timeoutLogicaDeClick = useRef()
+
+    const timeoutPasoDeNivel = useRef()
+
+    const NIVEL_MAXIMO = 4
 
 
     useEffect(() => {
-
-        clickBoton.current = function () {}
 
         function encenderLuz(numero) {
             switch (numero) {
@@ -103,33 +115,38 @@ export default function SimonDice() {
         }
 
         
-
+        /*Cuando se carga la página, el estado de finalizar es por defecto true. Entonces, esta logica se ejecutará despues del primer render, y cada vez que se haga click en el boton "Finalizar el juego"*/
+        /*Se define a clickBoton.current como una función vacía para que no dispare un error en caso de que el usuario presione una luz cuando no le es permitido, es decir, cuando la logica para presionar las luces no exista*/
         if (finalizar) {
+            clearTimeout(timeoutPasoDeNivel.current)
+            clearTimeout(timeoutLogicaDeClick.current)
+            setAviso('Presiona el boton para comenzar')
             clickBoton.current = function () {}
             timeOuts.current.forEach((item) => cancelarTimeOuts(item))
             
             timeOuts.current = []
             nivel.current = ''
-            console.log('se detuvo la app')
+            console.log('se finalizó la partida')
         }
 
         if (iniciar) {
             let secuencia = new Array(NIVEL_MAXIMO).fill(0).map(n => Math.floor(Math.random()*4 + 1))
             nivel.current = 1
+            
             console.log(secuencia)
-            /* console.log(timeOuts.current) */
 
             function iluminarSecuencia() {
                 subNivel.current = 0
                 timeOuts.current = []
-
+                setAviso('Espera...')
     
-                for (var i = 0; i < nivel.current; i++) {
+                for (let i = 0; i < nivel.current; i++) {
                     let luz = secuencia[i];
                     timeOuts.current.push(setTimeout(() => iluminarApagar(luz), 1000 * i))
                 }
 
-                setTimeout(() => {
+                timeoutLogicaDeClick.current = setTimeout(() => {
+                    setAviso('Ahora')
                     clickBoton.current = function () {
                     const numeroDelColor = numeroDeBoton.current
                     iluminarApagar(numeroDelColor)
@@ -142,7 +159,7 @@ export default function SimonDice() {
                                 ganoElJuego()
                             } else {
                                 clickBoton.current = function () {}
-                                setTimeout(() => iluminarSecuencia(), 1600); 
+                                timeoutPasoDeNivel.current = setTimeout(() => iluminarSecuencia(), 1600); 
                             }
                         }
                     } else {
@@ -151,27 +168,39 @@ export default function SimonDice() {
                     }
                 }, 1000 * nivel.current)
 
+                
             }
 
-
-            setTimeout(() => iluminarSecuencia(), 1000) 
+            setTimeout(() => iluminarSecuencia(), 150)
         }
 
-        
     }, [iniciar, finalizar])
 
     
 
 
     return (
-        <main className="vh-100 d-flex flex-column justify-content-around align-items-center bg-danger">
+        <main className="contenedor-app-simon">
             <SimonContext.Provider value={state}>
-                <BotonInicio/>
-                <BotonFinalizar/>
-                <div>
-                    <p>{`nivel: ${nivel.current}`}</p>
+                <div className="contenedor-inicio-finalizar">
+                    <BotonInicio/>
+                    <BotonFinalizar/>
                 </div>
-                <LucesSimon />
+                <div className="contenedor-nivel-aviso-luces">
+                    <div>
+                        <h5>{`nivel: ${nivel.current}`}</h5>
+                    </div>
+                    <div>
+                        <h5>{aviso}</h5>
+                    </div>
+                    <div className="contenedor-luces">
+                        <LuzVerde />
+                        <LuzRoja />
+                        <LuzAmarilla />
+                        <LuzAzul />
+                    </div>
+                </div>
+                
             </SimonContext.Provider>
         </main> 
     )

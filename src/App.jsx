@@ -4,7 +4,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import NavBar from './Componentes/Navegacion';
 
@@ -35,10 +34,6 @@ function App() {
   );
 }
 
-
-function Simon() {
-  return <h2>Simon</h2>;
-}
 
 function Post() {
   return <h2>Post de instagram</h2>;
