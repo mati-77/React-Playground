@@ -55,11 +55,11 @@
 
 
 .verde-iluminada {
-    background-color: #d7ff9a;
+    background-color: #defdaf;
 }
 
 .roja-iluminada {
-    background-color: #f15e5e;
+    background-color: #fab9b9;
 }
 
 .amarilla-iluminada {
@@ -67,11 +67,11 @@
 }
 
 .azul-iluminada {
-    background-color: #5050fb;
+    background-color: #b2b2fa;
 }
 
 
-  @media screen and (min-width: 640px) and (max-width: 767px) and (orientation: landscape) {
+  @media screen and (min-width: 640px) and (max-width: 800px) and (orientation: landscape) {
     .contenedor-app-simon {
         flex-direction: row;
     }
