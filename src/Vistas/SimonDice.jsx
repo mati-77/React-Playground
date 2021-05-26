@@ -10,6 +10,8 @@ import LuzRoja from '../Componentes/Simon_Dice/LuzRoja';
 import LuzAmarilla from '../Componentes/Simon_Dice/LuzAmarilla';
 import LuzAzul from '../Componentes/Simon_Dice/LuzAzul';
 
+import '../../src/css/simon.css'
+
 
 
 export default function SimonDice() {
@@ -59,7 +61,7 @@ export default function SimonDice() {
 
     const timeoutPasoDeNivel = useRef()
 
-    const NIVEL_MAXIMO = 4
+    const NIVEL_MAXIMO = 10
 
 
     useEffect(() => {

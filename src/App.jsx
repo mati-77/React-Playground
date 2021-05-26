@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+/* import './App.css'; */
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,9 +22,9 @@ function App() {
           <Route path="/simon">
               <SimonDice />
           </Route>
-          <Route path="/post">
+          {/* <Route path="/post">
             <Post />
-          </Route>
+          </Route> */}
           <Route path="/">
             <Home />
           </Route>
@@ -35,8 +35,8 @@ function App() {
 }
 
 
-function Post() {
+/* function Post() {
   return <h2>Post de instagram</h2>;
-}
+} */
 
 export default App;
