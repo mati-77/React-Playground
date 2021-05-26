@@ -16,8 +16,8 @@ export default function Home() {
                 </section>
                 <section className="d-flex flex-column justify-content-center align-items-center ps-3 pe-3 text-center">
                     <h5 className="mb-3">Bienvenido/a a mi primer proyecto desarrollado con React.js. Acá vas a encontrar demostraciones de lo que puedo hacer hasta el momento. Podés acceder a cada demostración desde la barra de navegación</h5>
-                    <p>Busco mi primera experiencia laboral como Frontend Developer Jr, y tambien seguir capacitandome en Desarrollo Web Frontend, para eventualmente capacitarme tambien en Backend y convertirme en un Fullstack Developer. <br />
-                    Tengo conocimientos y habilidades en HTML, CSS, Bootstrap, JavaScript, React, Git y GitHub, y ademas sé ingles nivel intermedio.</p>
+                    <p>Busco mi primera experiencia laboral como Frontend Developer Jr, y también seguir capacitándome en Desarrollo Web Frontend, para eventualmente capacitarme también en Backend y convertirme en un Fullstack Developer. <br />
+                    Tengo conocimientos y habilidades en HTML, CSS, Bootstrap, JavaScript, React, Git y GitHub, y además sé ingles nivel intermedio.</p>
                 </section>
                 <section className="d-flex justify-content-around">
                     <div className="d-flex flex-column justify-content-center align-items-center">

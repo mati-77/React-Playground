@@ -122,7 +122,7 @@ export default function SimonDice() {
         if (finalizar) {
             clearTimeout(timeoutPasoDeNivel.current)
             clearTimeout(timeoutLogicaDeClick.current)
-            setAviso('Presiona el boton para comenzar')
+            setAviso('Presiona el botón para comenzar')
             clickBoton.current = function () {}
             timeOuts.current.forEach((item) => cancelarTimeOuts(item))
             
