@@ -16,8 +16,8 @@ export default function Home() {
                 </section>
                 <section className="d-flex flex-column justify-content-center align-items-center ps-3 pe-3 text-center">
                     <h5 className="mb-3">Bienvenido/a a mi primer proyecto desarrollado con React.js. Acá vas a encontrar demostraciones de lo que puedo hacer hasta el momento. Podés acceder a cada demostración desde la barra de navegación</h5>
-                    <p>Busco mi primera experiencia laboral como Frontend Developer Jr, y también seguir capacitándome en Desarrollo Web Frontend, para eventualmente capacitarme también en Backend y convertirme en un Fullstack Developer. <br />
-                    Tengo conocimientos y habilidades en HTML, CSS, Bootstrap, JavaScript, React, Git y GitHub, y además sé ingles nivel avanzado.</p>
+                    <p><b>Simón Dice</b></p>
+                    <p>Es un juego de memoria de diez niveles. Cada vez que se hace click en el botón de inicio, se genera un array con una secuencia de números, que se corresponden con los cuatro colores del juego. De acuerdo al nivel, se iluminará una cantidad de luces, que el usuario deberá presionar. Las luces solo podrán ser presionadas una vez que terminen de iluminarse, y el juego podrá ser finalizado en cualquier momento presionando el botón de Finalizar. El array con la secuencia de números aparece en la consola del navegador.</p>
                 </section>
                 <section className="d-flex justify-content-around">
                     <div className="d-flex flex-column justify-content-center align-items-center">
