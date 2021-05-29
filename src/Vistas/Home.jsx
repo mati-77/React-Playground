@@ -17,7 +17,7 @@ export default function Home() {
                 <section className="d-flex flex-column justify-content-center align-items-center ps-3 pe-3 text-center">
                     <h5 className="mb-3">Bienvenido/a a mi primer proyecto desarrollado con React.js. Acá vas a encontrar demostraciones de lo que puedo hacer hasta el momento. Podés acceder a cada demostración desde la barra de navegación</h5>
                     <p>Busco mi primera experiencia laboral como Frontend Developer Jr, y también seguir capacitándome en Desarrollo Web Frontend, para eventualmente capacitarme también en Backend y convertirme en un Fullstack Developer. <br />
-                    Tengo conocimientos y habilidades en HTML, CSS, Bootstrap, JavaScript, React, Git y GitHub, y además sé ingles nivel intermedio.</p>
+                    Tengo conocimientos y habilidades en HTML, CSS, Bootstrap, JavaScript, React, Git y GitHub, y además sé ingles nivel avanzado.</p>
                 </section>
                 <section className="d-flex justify-content-around">
                     <div className="d-flex flex-column justify-content-center align-items-center">
@@ -25,7 +25,7 @@ export default function Home() {
                         <h5>Linkedin</h5>
                     </div>
                     <div className="d-flex flex-column justify-content-center align-items-center">
-                        <a href="https://github.com/mati-77/React-Playground"><img src={GitHubLogo} alt="Logo de GitHub" style={{height: "2rem"}}/></a>
+                        <a href="https://github.com/mati-77/React-Playground/tree/main/src/Vistas"><img src={GitHubLogo} alt="Logo de GitHub" style={{height: "2rem"}}/></a>
                         <h5>GitHub</h5>
                     </div>
                 </section>
