@@ -6,7 +6,7 @@ import {
   Route,
 } from "react-router-dom";
 import NavBar from './Componentes/Navegacion';
-
+import './css/App.css'
 import Home from './Vistas/Home';
 import SimonDice from './Vistas/SimonDice';
 
@@ -16,7 +16,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div style={{height:'100%'}}>
         <NavBar />
         <Switch>
           <Route path="/simon">
