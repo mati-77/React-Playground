@@ -13,6 +13,7 @@ export default function NavBar() {
                     <div className="navbar-nav">
                         <Link to="/" className="nav-link active" aria-current="page">Home</Link>
                         <Link to="/simon" className="nav-link active">Simon Dice</Link>
+                        <Link to="/buscador" className="nav-link active">Buscador</Link>
                         {/* <Link to="/post" className="nav-link">Post</Link> */}
                     </div>
                 </div>

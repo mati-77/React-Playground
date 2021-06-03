@@ -17,6 +17,12 @@ export default function Home() {
                         <p className="mb-4">Es un juego de memoria de diez niveles. Cada vez que se hace click en el botón de inicio, se genera un array con una secuencia de números, que se corresponden con los cuatro colores del juego. De acuerdo al nivel, se iluminará una cantidad de luces, que el usuario deberá presionar. Las luces solo podrán ser presionadas una vez que terminen de iluminarse, y el juego podrá ser finalizado en cualquier momento presionando el botón de Finalizar. El array con la secuencia de números aparece en la consola del navegador.</p>
                     </div>
                 </section>
+                <section className="d-flex flex-column justify-content-center align-items-center ps-3 pe-3 mb-4 text-center">
+                    <div className="ps-3 pe-3 border border-light rounded text-light">
+                        <p className="mt-3"><b>Buscador</b></p>
+                        <p className="mb-4">Todavía en construcción</p>
+                    </div>
+                </section>
                 <section className="d-flex justify-content-around mb-4">
                     <a className="d-flex flex-column justify-content-center align-items-center text-decoration-none text-light" href="https://www.linkedin.com/in/matias-d-3094b8208" target="_blank">
                         <img src={LinkedinLogo} alt="Logo de Linkedin" style={{height: "2rem"}}/>

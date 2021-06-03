@@ -9,6 +9,7 @@ import NavBar from './Componentes/Navegacion';
 import './css/App.css'
 import Home from './Vistas/Home';
 import SimonDice from './Vistas/SimonDice';
+import Buscador from './Vistas/Buscador';
 
 
 
@@ -19,6 +20,9 @@ function App() {
       <div style={{height:'100%'}}>
         <NavBar />
         <Switch>
+          <Route path="/buscador">
+              <Buscador />
+          </Route>
           <Route path="/simon">
               <SimonDice />
           </Route>
