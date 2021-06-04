@@ -19,12 +19,9 @@ export default function Buscador() {
     if(huboError) {
 
         return (
-            <Fragment>
-                <div className="d-flex justify-content-center mt-3 mb-3 text-light">
-                    <h2>Hubo un error con la api de rick and morty</h2>
-                </div>
-            </Fragment>
-            
+            <div className="d-flex justify-content-center align-items-center mt-3 mb-3 text-light h-100 ps-3 pe-3">
+                <h3>Parece que hubo algun tipo de error! La información necesaria para cargar esto parece no estar disponible por el momento.</h3>
+            </div>
         )
 
     } else {
@@ -42,7 +39,7 @@ export default function Buscador() {
         return (
             <Fragment>
                 <div className="d-flex justify-content-center mt-3 mb-3">
-                    <input type="text" ref={consulta} onChange={filtrarPorBusqueda}/>
+                    <input type="text" placeholder="Buscar" ref={consulta} onChange={filtrarPorBusqueda}/>
                 </div>
                 <div className="text-light text-center">
                     {
