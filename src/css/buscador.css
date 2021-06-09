@@ -1,0 +1,22 @@
+.tarjeta {
+    width: 13rem;
+    height: fit-content;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border: 1px solid white;
+    border-radius: 15px;
+}
+
+.imagen-tarjeta {
+    width: 175px;
+    height: 175px;
+    margin-bottom: 1rem;
+}
+
+.descripcion-tarjeta {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 60%;
+    /* margin-bottom: 1rem; */
+}

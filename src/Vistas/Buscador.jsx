@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment, useRef } from 'react';
-import Buscar from '../Componentes/Buscador/Buscar';
+
+import '../css/buscador.css'
 
 export default function Buscador() {
 
@@ -7,9 +8,10 @@ export default function Buscador() {
     const [busqueda, setBusqueda] = useState('')
     const [huboError, setHuboError] = useState(false)
     const consulta = useRef()
+    const cargando = useRef(true)
 
     useEffect(() => {
-         fetch("https://rickandmortyapi.com/api/character")
+        fetch("https://rickandmortyapi.com/api/character")
         .then((respuesta) => respuesta.ok ? Promise.resolve(respuesta.json()) : Promise.reject(true))
         .then(respuesta => setPersonajes(respuesta.results))
         .catch((e) => setHuboError(e))
@@ -26,35 +28,49 @@ export default function Buscador() {
 
     } else {
 
-        const filtrarPorBusqueda = () => {
-            console.log(consulta.current.value)
-            setBusqueda(consulta.current.value)
+        if (personajes.length > 0) {
+            cargando.current = huboError
         }
-
-        const filtradoPorBusqueda = personajes.filter((user) => {
-            return user.name.toLowerCase().includes(busqueda.toLowerCase())
-        })
-
-    
-        return (
-            <Fragment>
-                <div className="d-flex justify-content-center mt-3 mb-3">
-                    <input type="text" placeholder="Buscar" ref={consulta} onChange={filtrarPorBusqueda}/>
-                </div>
-                <div className="text-light text-center">
-                    {
-                        filtradoPorBusqueda.map(personaje => <h2>{personaje.name}</h2>)
-                    }
-                </div>
-            </Fragment>
-            
-        )
-
-
         
-    }
+        if(cargando.current) {
+            return (
+                <div className="d-flex justify-content-center align-items-center mt-3 mb-3 text-light h-100 ps-3 pe-3">
+                    <h1>Cargando...</h1>
+                </div>
+            )
+        } else {
+            const filtrarPorBusqueda = () => {
+                setBusqueda(consulta.current.value)
+            }
 
+            const filtradoPorBusqueda = personajes.filter((user) => {
+                return user.name.toLowerCase().includes(busqueda.toLowerCase())
+            })
 
     
+            return (
+                <Fragment>
+                    <div className="d-flex justify-content-center mt-3 mb-3">
+                        <input type="text" placeholder="Buscar" ref={consulta} onChange={filtrarPorBusqueda}/>
+                    </div>
+                    <div className="d-flex flex-wrap justify-content-evenly text-light text-center">
+                        {
+                            filtradoPorBusqueda.map(personaje => (
+                                <div className="tarjeta" key={personaje.id}>
+                                    <img className="imagen-tarjeta" src={personaje.image} alt="Imagen de personaje" />
+                                    <div className="descripcion-tarjeta">
+                                        <h2>{personaje.name}</h2>
+                                        <h5>Status: {personaje.status}</h5>
+                                        <h5>Species: {personaje.species}</h5>
+                                        <h5>Gender: {personaje.gender}</h5>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </Fragment>
+            )
+        }
+    }
 }
 
