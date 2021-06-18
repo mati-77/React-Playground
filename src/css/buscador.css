@@ -1,3 +1,126 @@
+/* .contenedor-menu-lateral {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    height: 100vh;
+} */
+
+.boton-filtros {
+    background-color: transparent;
+    color: #fff;
+    border-style: none;
+    border: solid 1px #fff;
+    border-radius: 3px;
+    width: 5rem;
+}
+
+.anim-ocultar {
+    animation-name: ocultarmenu;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: flex-start;
+}
+
+.anim-mostrar {
+    animation-name: mostrarmenu;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: flex-start;
+}
+
+.esconder {
+    display: none;
+}
+
+.menu-lateral {
+    background: linear-gradient(180deg, rgba(0,0,0,0.9) 60%, rgba(0,0,0,0) 100%);
+    position: absolute;
+    top: 115px;
+    left: 0px;
+    height: 100vh;
+    width: 100%;
+    padding-top: 1rem;
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: flex-start; */
+}
+
+.caja-filtros {
+    height: fit-content;
+    width: 13rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.opciones-filtros {
+    height: fit-content;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.menu-lateral button {
+    /* background-color: orange; */
+    /* border-radius: 10px; */
+    border-style: none;
+    padding: 0.2rem;
+    /* margin-bottom: 0.3rem; */
+    text-decoration: none;
+    /* color: white; */
+    color: black;
+    font-size: 1rem;
+    /* font-weight: 500; */
+    width: 7rem;
+}
+
+.menu-lateral button:hover {
+    background-color: orange;
+    color: white;
+}
+
+/* .opciones-filtros button:active {
+    background-color: orange;
+    color: white;
+} */
+
+
+.filtro-elegido {
+    background-color: orange;
+    color: white;
+}
+
+@keyframes mostrarmenu {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes ocultarmenu {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
 .tarjeta {
     width: 13rem;
     height: fit-content;
