@@ -7,16 +7,27 @@ export default function Buscador() {
     const [personajes, setPersonajes] = useState([])
     const [busqueda, setBusqueda] = useState('')
     const [huboError, setHuboError] = useState(false)
+
     const [mostrarMenu, setMostrarMenu] = useState('esconder')
     const [animacionOcultarMenu, setAnimacionOcultarMenu] = useState('')
     const [animacionMostrarMenu, setAnimacionMostrarMenu] = useState('')
+
     const consulta = useRef()
     const cargando = useRef(true)
-    const segunStatus = useRef()
     const nodoGuardado= useRef()
-    /* const nodoGuardadoStatus = useRef(null)
-    const nodoGuardadoEspecie = useRef(null)
-    const nodoGuardadoGenero = useRef(null) */
+
+    const arrayStatus = useRef([])
+    const arrayEspecie = useRef([])
+    const arrayGenero = useRef([])
+
+    const [hayFiltroStatus, setHayFiltroStatus] = useState(false)
+    const [hayFiltroEspecie, setHayFiltroEspecie] = useState(false)
+    const [hayFiltroGenero, setHayFiltroGenero] = useState(false)
+
+    const [valorFiltroStatus, setValorFiltroStatus] = useState("")
+    const [valorFiltroEspecie, setValorFiltroEspecie] = useState("")
+    const [valorFiltroGenero, setValorFiltroGenero] = useState("")
+
 
     useEffect(() => {
         fetch("https://rickandmortyapi.com/api/character")
@@ -51,10 +62,6 @@ export default function Buscador() {
                 setBusqueda(consulta.current.value)
             }
 
-            const filtradoPorBusqueda = personajes.filter((user) => {
-                return user.name.toLowerCase().includes(busqueda.toLowerCase())
-            })
-
             const desplegarMenuFiltros = () => {
                 if(mostrarMenu === 'esconder') {
                     setMostrarMenu('')
@@ -69,6 +76,38 @@ export default function Buscador() {
                 }
             }
 
+            function aplicarFiltro(tipo, valor) {
+                if (tipo === "status") {
+                    arrayStatus.current = personajes.filter(p => p.status.includes(valor))
+                    setValorFiltroStatus(valor)
+                    setHayFiltroStatus(true)
+                } else if (tipo === "especie") {
+                    arrayEspecie.current = personajes.filter(p => p.species.includes(valor))
+                    setValorFiltroEspecie(valor)
+                    setHayFiltroEspecie(true)
+                } else if (tipo === "genero") {
+                    arrayGenero.current = personajes.filter(p => p.gender.includes(valor))
+                    setValorFiltroGenero(valor)
+                    setHayFiltroGenero(true)
+                }
+            }
+
+            function removerFiltro(tipo) {
+                if (tipo === "status") {
+                    arrayStatus.current = []
+                    setValorFiltroStatus("")
+                    setHayFiltroStatus(false)
+                } else if (tipo === "especie") {
+                    arrayEspecie.current = []
+                    setValorFiltroEspecie("")
+                    setHayFiltroEspecie(false)
+                } else if (tipo === "genero") {
+                    arrayGenero.current = []
+                    setValorFiltroGenero("")
+                    setHayFiltroGenero(false)
+                }
+            }
+
 
             function seleccBoton(e) {
                 nodoGuardado.current = document.getElementById(e.target.id)
@@ -79,26 +118,35 @@ export default function Buscador() {
                 let elementosArrayFiltrado = elementosArray.filter(afiltrar => afiltrar.classList.contains("filtro-elegido"))
 
                 if (elementosArrayFiltrado.length > 0) {
-
                     if (nodoGuardado.current.id !== elementosArrayFiltrado[0].id) {
-
-                        elementosArrayFiltrado.forEach(boton => {
-                            boton.classList.remove("filtro-elegido")
-                        });
-
+                        elementosArrayFiltrado[0].classList.remove("filtro-elegido")
+                        removerFiltro(elementosArrayFiltrado[0].dataset.tipo)
                         nodoGuardado.current.classList.add("filtro-elegido")
-
+                        aplicarFiltro(nodoGuardado.current.dataset.tipo, nodoGuardado.current.dataset.filtro)
                     } else {
                         nodoGuardado.current.classList.remove("filtro-elegido")
+                        removerFiltro(nodoGuardado.current.dataset.tipo)
                     }
-
                 } else {
                     nodoGuardado.current.classList.add("filtro-elegido")
+                    aplicarFiltro(nodoGuardado.current.dataset.tipo, nodoGuardado.current.dataset.filtro)
                 }
-  
             }
 
+            let filtradoPorBusqueda = []
 
+            if (hayFiltroStatus || hayFiltroEspecie || hayFiltroGenero) {
+                let arraysFiltradosPorBotones = [...arrayStatus.current, ...arrayEspecie.current, ...arrayGenero.current]
+                let eliminarDuplicados = [...new Set(arraysFiltradosPorBotones) ]
+                let filtroFinal = eliminarDuplicados.filter((elemento) => elemento.status.includes(valorFiltroStatus) && elemento.species.includes(valorFiltroEspecie) && elemento.gender.includes(valorFiltroGenero))
+                filtradoPorBusqueda = filtroFinal.filter((user) => {
+                    return user.name.toLowerCase().includes(busqueda.toLowerCase())
+                })
+            } else {
+                filtradoPorBusqueda = personajes.filter((user) => {
+                    return user.name.toLowerCase().includes(busqueda.toLowerCase())
+                })
+            }
 
     
             return (
@@ -108,33 +156,33 @@ export default function Buscador() {
                         <input type="text" placeholder="Buscar" ref={consulta} onChange={filtrarPorBusqueda}/>
                     </nav>
                     <div className="d-flex flex-wrap justify-content-evenly text-light text-center">
-                        <aside className={`menu-lateral ${mostrarMenu} ${animacionMostrarMenu} ${animacionOcultarMenu}`}>
+                        <div className={`menu-lateral ${mostrarMenu} ${animacionMostrarMenu} ${animacionOcultarMenu}`}>
                             <div className="caja-filtros">
                                 <p className="fw-bold">Status</p>
-                                <div className="opciones-filtros" ref={segunStatus}>
-                                    <button type="button" id="vivo" data-tipo="status" data-compar="vivo" onClick={seleccBoton}>Vivo</button>
-                                    <button type="button" id="muerto" data-tipo="status" data-compar="muerto" onClick={seleccBoton}>Muerto</button>
-                                    <button type="button" id="desconocido-1" data-tipo="status" data-compar="desconocido" onClick={seleccBoton}>Desconocido</button>
+                                <div className="opciones-filtros">
+                                    <button type="button" id="vivo" data-tipo="status" data-filtro="Alive" onClick={seleccBoton}>Vivo</button>
+                                    <button type="button" id="muerto" data-tipo="status" data-filtro="Dead" onClick={seleccBoton}>Muerto</button>
+                                    <button type="button" id="desconocido-1" data-tipo="status" data-filtro="unknown" onClick={seleccBoton}>Desconocido</button>
                                 </div>
                                 
                             </div>
                             <div className="caja-filtros">
                                 <p className="fw-bold">Especie</p>
                                 <div className="opciones-filtros">
-                                    <button type="button" id="humana" data-tipo="especie" data-compar="humana" onClick={seleccBoton}>Humana</button>
-                                    <button type="button" id="alien" data-tipo="especie" data-compar="alien" onClick={seleccBoton}>Alien</button>
+                                    <button type="button" id="humana" data-tipo="especie" data-filtro="Human" onClick={seleccBoton}>Humana</button>
+                                    <button type="button" id="alien" data-tipo="especie" data-filtro="Alien" onClick={seleccBoton}>Alien</button>
                                 </div>
                             </div>
                             <div className="caja-filtros">
                                 <p className="fw-bold">Género</p>
                                 <div className="opciones-filtros">
-                                    <button type="button" id="masculino" data-tipo="genero" data-compar="masculino" onClick={seleccBoton}>Masculino</button>
-                                    <button type="button" id="femenino" data-tipo="genero" data-compar="femenino" onClick={seleccBoton}>Femenino</button>
-                                    <button type="button" id="desconocido-2" data-tipo="genero" data-compar="desconocido" onClick={seleccBoton}>Desconocido</button>
+                                    <button type="button" id="masculino" data-tipo="genero" data-filtro="Male" onClick={seleccBoton}>Masculino</button>
+                                    <button type="button" id="femenino" data-tipo="genero" data-filtro="Female" onClick={seleccBoton}>Femenino</button>
+                                    <button type="button" id="desconocido-2" data-tipo="genero" data-filtro="unknown" onClick={seleccBoton}>Desconocido</button>
                                 </div>
                                 
                             </div>
-                        </aside>
+                        </div>
                         {
                             filtradoPorBusqueda.map(personaje => (
                                 <div className="tarjeta" key={personaje.id}>
