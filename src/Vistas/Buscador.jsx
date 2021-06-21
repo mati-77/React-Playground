@@ -187,7 +187,7 @@ export default function Buscador() {
                         {
                             filtradoPorBusqueda.map(personaje => (
                                 <div className="tarjeta" key={personaje.id}>
-                                    <img className="imagen-tarjeta" src={personaje.image} alt="Imagen de personaje" />
+                                    <img className="imagen-tarjeta" src={personaje.image} alt={`imagen de ${personaje.name}`} />
                                     <div className="descripcion-tarjeta">
                                         <h2>{personaje.name}</h2>
                                         <h5>Status: {personaje.status}</h5>

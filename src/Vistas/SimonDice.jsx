@@ -150,23 +150,23 @@ export default function SimonDice() {
                 timeoutLogicaDeClick.current = setTimeout(() => {
                     setAviso('Ahora')
                     clickBoton.current = function () {
-                    const numeroDelColor = numeroDeBoton.current
-                    iluminarApagar(numeroDelColor)
+                        const numeroDelColor = numeroDeBoton.current
+                        iluminarApagar(numeroDelColor)
 
-                    if(numeroDelColor === secuencia[subNivel.current]) {
-                        subNivel.current++
-                        if(subNivel.current === nivel.current) {
-                            nivel.current++
-                            if(nivel.current === (NIVEL_MAXIMO + 1)) {
-                                ganoElJuego()
-                            } else {
-                                clickBoton.current = function () {}
-                                timeoutPasoDeNivel.current = setTimeout(() => iluminarSecuencia(), 1600); 
+                        if(numeroDelColor === secuencia[subNivel.current]) {
+                            subNivel.current++
+                            if(subNivel.current === nivel.current) {
+                                nivel.current++
+                                if(nivel.current === (NIVEL_MAXIMO + 1)) {
+                                    ganoElJuego()
+                                } else {
+                                    clickBoton.current = function () {}
+                                    timeoutPasoDeNivel.current = setTimeout(() => iluminarSecuencia(), 1600); 
+                                }
                             }
+                        } else {
+                            perdioElJuego()
                         }
-                    } else {
-                        perdioElJuego()
-                    }
                     }
                 }, 1000 * nivel.current)
 
@@ -202,7 +202,6 @@ export default function SimonDice() {
                         <LuzAzul />
                     </div>
                 </div>
-                
             </SimonContext.Provider>
         </main> 
     )
