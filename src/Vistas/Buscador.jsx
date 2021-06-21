@@ -110,6 +110,7 @@ export default function Buscador() {
 
 
             function seleccBoton(e) {
+                e.stopPropagation()
                 nodoGuardado.current = document.getElementById(e.target.id)
 
                 let elementos = document.querySelectorAll(`[data-tipo=${nodoGuardado.current.dataset.tipo}]`)
@@ -156,7 +157,7 @@ export default function Buscador() {
                         <input type="text" placeholder="Buscar" ref={consulta} onChange={filtrarPorBusqueda}/>
                     </nav>
                     <div className="d-flex flex-wrap justify-content-evenly text-light text-center">
-                        <div className={`menu-lateral ${mostrarMenu} ${animacionMostrarMenu} ${animacionOcultarMenu}`}>
+                        <div className={`menu-filtros ${mostrarMenu} ${animacionMostrarMenu} ${animacionOcultarMenu}`} onClick={desplegarMenuFiltros}>
                             <div className="caja-filtros">
                                 <p className="fw-bold">Status</p>
                                 <div className="opciones-filtros">
