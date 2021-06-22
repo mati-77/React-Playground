@@ -4,7 +4,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: #dc3545;
+    /* background-color: #dc3545; */
 }
 
 .contenedor-luces {
@@ -31,6 +31,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    color: #ffffff;
 }
 
 .luz-verde {
