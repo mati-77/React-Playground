@@ -149,6 +149,24 @@ export default function Buscador() {
                 })
             }
 
+            let card
+
+            if (filtradoPorBusqueda.length > 0) {
+                card = filtradoPorBusqueda.map(personaje => (
+                    <div className="tarjeta" key={personaje.id}>
+                        <img className="imagen-tarjeta" src={personaje.image} alt={`imagen de ${personaje.name}`} />
+                        <div className="descripcion-tarjeta">
+                            <h2>{personaje.name}</h2>
+                            <h5>Status: {personaje.status}</h5>
+                            <h5>Species: {personaje.species}</h5>
+                            <h5>Gender: {personaje.gender}</h5>
+                        </div>
+                    </div>
+                ))
+            } else {
+                card = <h1>No se encontraron resultados</h1>
+            }
+
     
             return (
                 <Fragment>
@@ -156,7 +174,7 @@ export default function Buscador() {
                         <button className="boton-filtros" onClick={desplegarMenuFiltros}>Filtros</button>
                         <input type="text" placeholder="Buscar" ref={consulta} onChange={filtrarPorBusqueda}/>
                     </nav>
-                    <div className="d-flex flex-wrap justify-content-evenly text-light text-center">
+                    <div className="d-flex flex-wrap justify-content-evenly text-light text-center position-relative">
                         <div className={`menu-filtros ${mostrarMenu} ${animacionMostrarMenu} ${animacionOcultarMenu}`} onClick={desplegarMenuFiltros}>
                             <div className="caja-filtros">
                                 <p className="fw-bold">Status</p>
@@ -184,19 +202,9 @@ export default function Buscador() {
                                 
                             </div>
                         </div>
-                        {
-                            filtradoPorBusqueda.map(personaje => (
-                                <div className="tarjeta" key={personaje.id}>
-                                    <img className="imagen-tarjeta" src={personaje.image} alt={`imagen de ${personaje.name}`} />
-                                    <div className="descripcion-tarjeta">
-                                        <h2>{personaje.name}</h2>
-                                        <h5>Status: {personaje.status}</h5>
-                                        <h5>Species: {personaje.species}</h5>
-                                        <h5>Gender: {personaje.gender}</h5>
-                                    </div>
-                                </div>
-                            ))
-                        }
+
+                        {card}
+
                     </div>
                 </Fragment>
             )
