@@ -10,7 +10,6 @@ import './css/App.css'
 import Home from './Vistas/Home';
 import SimonDice from './Vistas/SimonDice';
 import Buscador from './Vistas/Buscador';
-import Footer from './Componentes/Footer';
 
 
 
@@ -34,7 +33,6 @@ function App() {
             <Home />
           </Route>
         </Switch>
-        <Footer />
       </div>
     </Router>
     
