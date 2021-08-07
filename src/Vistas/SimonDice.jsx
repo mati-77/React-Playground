@@ -76,6 +76,8 @@ export default function SimonDice() {
                     return setEstadoLuzAmarilla('amarilla-iluminada')
                 case 4:
                     return setEstadoLuzAzul('azul-iluminada')
+                default:
+                    return null
             }
         }
 
@@ -89,6 +91,8 @@ export default function SimonDice() {
                     return setEstadoLuzAmarilla('')
                 case 4:
                     return setEstadoLuzAzul('')
+                default:
+                    return null
             }
         }
 

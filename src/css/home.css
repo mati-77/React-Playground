@@ -4,15 +4,36 @@
     color: #61dafb;
 }
 
-@media screen and (orientation: landscape) and (max-width: 1000px){
-    .home {
-        height: unset;
-    };
+.proyectos {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
-@media screen and (orientation: portrait) {
+.proyecto {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 1.5rem;
+    width: 50%;
+}
+
+
+
+@media screen and (orientation: portrait), 
+    (min-width: 600px) and (max-width: 1000px){
     .home {
         height: unset;
     }
+
+    .proyectos {
+        flex-direction: column;
+    }
+
+    .proyecto {
+        width: 100%;
+    }
+
 }
 
