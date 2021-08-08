@@ -5,7 +5,8 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import NavBar from './Componentes/Navegacion';
+import ScrollToTop from './Componentes/ScrollToTop';
+import NavBar from './Componentes/NavBar';
 import './css/App.css'
 import Home from './Vistas/Home';
 import SimonDice from './Vistas/SimonDice';
@@ -17,6 +18,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <div style={{height:'100%'}}>
         <NavBar />
         <Switch>
