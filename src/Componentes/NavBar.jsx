@@ -15,7 +15,7 @@ export default function NavBar() {
 
     function cerrarBarra() {
         let botonCerrarBarra = document.getElementById("botonBarra")
-        if (menuVisible && window.innerWidth < 993) {
+        if (menuVisible && window.innerWidth < 992) {
             botonCerrarBarra.click()
         } else {
             return

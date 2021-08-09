@@ -5,10 +5,7 @@ import { SimonContext } from '../contexts/SimonContext';
 import BotonInicio from '../Componentes/Simon_Dice/BotonInicio';
 import BotonFinalizar from '../Componentes/Simon_Dice/BotonFinalizar';
 
-import LuzVerde from '../Componentes/Simon_Dice/LuzVerde';
-import LuzRoja from '../Componentes/Simon_Dice/LuzRoja';
-import LuzAmarilla from '../Componentes/Simon_Dice/LuzAmarilla';
-import LuzAzul from '../Componentes/Simon_Dice/LuzAzul';
+import Luz from '../Componentes/Simon_Dice/Luz';
 
 import '../../src/css/simon.css'
 
@@ -24,7 +21,7 @@ export default function SimonDice() {
     const [estadoLuzAmarilla, setEstadoLuzAmarilla] = useState('')
     const [estadoLuzAzul, setEstadoLuzAzul] = useState('')
 
-    const [aviso, setAviso] = useState()
+    const [avisoAlUsuario, setAvisoAlUsuario] = useState()
     
     /*referencia al boton "Finalizar el juego"*/
     const botonDeFin = useRef()
@@ -40,10 +37,6 @@ export default function SimonDice() {
     const state = {
         iniciar, setIniciar, 
         finalizar, setFinalizar, 
-        estadoLuzVerde, setEstadoLuzVerde, 
-        estadoLuzRoja, setEstadoLuzRoja, 
-        estadoLuzAmarilla, setEstadoLuzAmarilla, 
-        estadoLuzAzul, setEstadoLuzAzul, 
         botonDeFin, 
         nivel, 
         numeroDeBoton, 
@@ -126,7 +119,7 @@ export default function SimonDice() {
         if (finalizar) {
             clearTimeout(timeoutPasoDeNivel.current)
             clearTimeout(timeoutLogicaDeClick.current)
-            setAviso('Presiona el botón para comenzar')
+            setAvisoAlUsuario('Presiona el botón para comenzar')
             clickBoton.current = function () {}
             timeOuts.current.forEach((item) => cancelarTimeOuts(item))
             
@@ -144,7 +137,7 @@ export default function SimonDice() {
             function iluminarSecuencia() {
                 subNivel.current = 0
                 timeOuts.current = []
-                setAviso('Espera...')
+                setAvisoAlUsuario('Espera...')
     
                 for (let i = 0; i < nivel.current; i++) {
                     let luz = secuencia[i];
@@ -152,7 +145,7 @@ export default function SimonDice() {
                 }
 
                 timeoutLogicaDeClick.current = setTimeout(() => {
-                    setAviso('Ahora')
+                    setAvisoAlUsuario('Ahora')
                     clickBoton.current = function () {
                         const numeroDelColor = numeroDeBoton.current
                         iluminarApagar(numeroDelColor)
@@ -197,13 +190,13 @@ export default function SimonDice() {
                         <h5>{`nivel: ${nivel.current}`}</h5>
                     </div>
                     <div>
-                        <h5>{aviso}</h5>
+                        <h5>{avisoAlUsuario}</h5>
                     </div>
                     <div className="contenedor-luces">
-                        <LuzVerde />
-                        <LuzRoja />
-                        <LuzAmarilla />
-                        <LuzAzul />
+                        <Luz clasesLuz={`luz-verde ${estadoLuzVerde}`} dataColor="verde" numColor={1}/>
+                        <Luz clasesLuz={`luz-roja ${estadoLuzRoja}`} dataColor="rojo" numColor={2}/>
+                        <Luz clasesLuz={`luz-amarilla ${estadoLuzAmarilla}`} dataColor="amarillo" numColor={3}/>
+                        <Luz clasesLuz={`luz-azul ${estadoLuzAzul}`} dataColor="azul" numColor={4}/>
                     </div>
                 </div>
             </SimonContext.Provider>
