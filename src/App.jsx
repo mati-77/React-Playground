@@ -1,16 +1,15 @@
 import React from 'react';
-/* import './App.css'; */
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
-import ScrollToTop from './Componentes/ScrollToTop';
-import NavBar from './Componentes/NavBar';
-import './css/App.css'
-import Home from './Vistas/Home';
-import SimonDice from './Vistas/SimonDice';
-import Buscador from './Vistas/Buscador';
+
+import ScrollToTop from './ScrollToTop';
+import NavBar from './NavBar';
+import Home from './Vistas/Home/Home';
+import SimonDice from './Vistas/SimonDice/SimonDice';
+import Buscador from './Vistas/Buscador/Buscador';
 
 
 
@@ -19,7 +18,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div style={{height:'100%'}}>
+      <div>
         <NavBar />
         <Switch>
           <Route path="/buscador">
@@ -28,9 +27,6 @@ function App() {
           <Route path="/simon">
               <SimonDice />
           </Route>
-          {/* <Route path="/post">
-            <Post />
-          </Route> */}
           <Route path="/">
             <Home />
           </Route>
@@ -40,10 +36,5 @@ function App() {
     
   );
 }
-
-
-/* function Post() {
-  return <h2>Post de instagram</h2>;
-} */
 
 export default App;

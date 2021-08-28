@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { SimonContext } from '../contexts/SimonContext';
+import { SimonContext } from '../../contexts/SimonContext';
 
-import BotonInicio from '../Componentes/Simon_Dice/BotonInicio';
-import BotonFinalizar from '../Componentes/Simon_Dice/BotonFinalizar';
+import BotonInicio from './BotonInicio';
+import BotonFinalizar from './BotonFinalizar';
 
-import Luz from '../Componentes/Simon_Dice/Luz';
+import Luz from './Luz';
 
-import '../../src/css/simon.css'
+import './simon.css'
 
 
 

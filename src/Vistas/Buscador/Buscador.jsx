@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment, useRef } from 'react';
 
-import '../css/buscador.css'
+import './buscador.css';
 
 export default function Buscador() {
 
