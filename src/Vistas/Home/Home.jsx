@@ -19,8 +19,8 @@ export default function Home() {
                 <h2 className="text-center mt-5 mb-5 ps-3 pe-3">Hola! Mi nombre es Matias, y soy un desarrollador frontend</h2>
                 <h5 className="text-center mb-5 ps-3 pe-3">Bienvenido/a a esta colección de proyectos desarrollados con React.js.</h5>
                 <div className="proyectos">
-                    <Proyecto titulo="Simón Dice" descripcion={simonDice} url="SimonDice.jsx" ruta="/simon"/>
-                    <Proyecto titulo="Buscador" descripcion={buscador} url="Buscador.jsx" ruta="/buscador"/>
+                    <Proyecto titulo="Simón Dice" descripcion={simonDice} url="SimonDice/SimonDice.jsx" ruta="/simon"/>
+                    <Proyecto titulo="Buscador" descripcion={buscador} url="Buscador/Buscador.jsx" ruta="/buscador"/>
                 </div>
                 <section className="d-flex justify-content-around mb-4">
                     <Enlace imagen={LinkedinLogo} url="https://www.linkedin.com/in/matias-d-3094b8208" alt="Logo de Linkedin" texto="Linkedin"/>
