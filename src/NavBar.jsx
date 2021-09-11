@@ -1,40 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+
+import './NavBar.css'
 
 export default function NavBar() {
 
-    const [menuVisible, setMenuVisible] = useState(false)
-
-    function estaDesplegado() {
-        if(!menuVisible) {
-            setMenuVisible(true)
-        } else {
-            setMenuVisible(false)
-        }
-    }
-
-    function cerrarBarra() {
-        let botonCerrarBarra = document.getElementById("botonBarra")
-        if (menuVisible && window.innerWidth < 992) {
-            botonCerrarBarra.click()
-        } else {
-            return
-        }
-    }
-
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div className="container-fluid">
-                <p className="navbar-brand mb-0">React Playground</p>
-                <button id="botonBarra" className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" onClick={estaDesplegado}>
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div className="navbar-nav">
-                        <Link to="/" className="nav-link active" aria-current="page" onClick={cerrarBarra}>Home</Link>
-                        <Link to="/simon" className="nav-link active" onClick={cerrarBarra}>Simon Dice</Link>
-                        <Link to="/buscador" className="nav-link active" onClick={cerrarBarra}>Buscador</Link>
-                    </div>
+        <nav className="navbarmanual">
+            <div className="navbarmanual-contenedor">
+                <div className="navbar-nombre">
+                <Link to="/">React Playground</Link> 
+                </div>
+                <div className="navbar-links">
+                    <Link to="/" >Inicio</Link>
+                    <Link to="/" >Acerca</Link>
+                    <Link to="/" >Proyectos</Link>
                 </div>
             </div>
         </nav>

@@ -187,10 +187,10 @@ export default function SimonDice() {
                 </div>
                 <div className="contenedor-nivel-aviso-luces">
                     <div>
-                        <h5>{`nivel: ${nivel.current}`}</h5>
+                        <h5 className="aviso">{`nivel: ${nivel.current}`}</h5>
                     </div>
                     <div>
-                        <h5>{avisoAlUsuario}</h5>
+                        <h5 className="aviso">{avisoAlUsuario}</h5>
                     </div>
                     <div className="contenedor-luces">
                         <Luz clasesLuz={`luz-verde ${estadoLuzVerde}`} dataColor="verde" numColor={1}/>
