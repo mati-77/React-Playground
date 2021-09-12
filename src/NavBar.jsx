@@ -13,8 +13,8 @@ export default function NavBar() {
                 </div>
                 <div className="navbar-links">
                     <Link to="/" >Inicio</Link>
-                    <Link to="/" >Acerca</Link>
-                    <Link to="/" >Proyectos</Link>
+                    <Link to="/simon" >Simon</Link>
+                    <Link to="/buscador" >Buscador</Link>
                 </div>
             </div>
         </nav>

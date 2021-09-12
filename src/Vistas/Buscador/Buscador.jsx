@@ -170,42 +170,44 @@ export default function Buscador() {
     
             return (
                 <Fragment>
-                    <nav className="d-flex justify-content-evenly mt-3 mb-3">
-                        <button className="boton-filtros" onClick={desplegarMenuFiltros}>Filtros</button>
-                        <input type="text" placeholder="Buscar" ref={consulta} onChange={filtrarPorBusqueda}/>
-                    </nav>
-                    <div className="d-flex flex-wrap justify-content-evenly text-light text-center position-relative">
-                        <div className={`menu-filtros ${mostrarMenu} ${animacionMostrarMenu} ${animacionOcultarMenu}`} onClick={desplegarMenuFiltros}>
-                            <div className="caja-filtros">
-                                <p className="fw-bold">Status</p>
-                                <div className="opciones-filtros">
-                                    <button type="button" id="vivo" data-tipo="status" data-filtro="Alive" onClick={seleccBoton}>Vivo</button>
-                                    <button type="button" id="muerto" data-tipo="status" data-filtro="Dead" onClick={seleccBoton}>Muerto</button>
-                                    <button type="button" id="desconocido-1" data-tipo="status" data-filtro="unknown" onClick={seleccBoton}>Desconocido</button>
+                    <div>
+                        <nav className="d-flex justify-content-evenly filtrar" style={{marginBottom : "1.7rem"}}>
+                            <input type="text" placeholder="Nombre..." ref={consulta} onChange={filtrarPorBusqueda} style={{borderRadius : "1rem", borderStyle : "none", paddingLeft : "1rem", paddingRight : "1rem", fontSize : "1.3rem", outline : "none"}}/>
+                            <button className="boton-filtros" onClick={desplegarMenuFiltros}>Filtros</button>
+                        </nav>
+                        {/* le quite el position relative */}
+                        <div className="d-flex flex-wrap justify-content-evenly text-light text-center" style={{overflow : "hidden", paddingTop : "11rem"}}>
+                            <div className={`menu-filtros ${mostrarMenu} ${animacionMostrarMenu} ${animacionOcultarMenu}`} onClick={desplegarMenuFiltros}>
+                                <div className="caja-filtros">
+                                    <p className="fw-bold">Status</p>
+                                    <div className="opciones-filtros">
+                                        <button type="button" id="vivo" data-tipo="status" data-filtro="Alive" onClick={seleccBoton}>Vivo</button>
+                                        <button type="button" id="muerto" data-tipo="status" data-filtro="Dead" onClick={seleccBoton}>Muerto</button>
+                                        <button type="button" id="desconocido-1" data-tipo="status" data-filtro="unknown" onClick={seleccBoton}>Desconocido</button>
+                                    </div>
                                 </div>
-                                
-                            </div>
-                            <div className="caja-filtros">
-                                <p className="fw-bold">Especie</p>
-                                <div className="opciones-filtros">
-                                    <button type="button" id="humana" data-tipo="especie" data-filtro="Human" onClick={seleccBoton}>Humana</button>
-                                    <button type="button" id="alien" data-tipo="especie" data-filtro="Alien" onClick={seleccBoton}>Alien</button>
+                                <div className="caja-filtros">
+                                    <p className="fw-bold">Especie</p>
+                                    <div className="opciones-filtros">
+                                        <button type="button" id="humana" data-tipo="especie" data-filtro="Human" onClick={seleccBoton}>Humana</button>
+                                        <button type="button" id="alien" data-tipo="especie" data-filtro="Alien" onClick={seleccBoton}>Alien</button>
+                                    </div>
+                                </div>
+                                <div className="caja-filtros">
+                                    <p className="fw-bold">Género</p>
+                                    <div className="opciones-filtros">
+                                        <button type="button" id="masculino" data-tipo="genero" data-filtro="Male" onClick={seleccBoton}>Masculino</button>
+                                        <button type="button" id="femenino" data-tipo="genero" data-filtro="Female" onClick={seleccBoton}>Femenino</button>
+                                        <button type="button" id="desconocido-2" data-tipo="genero" data-filtro="unknown" onClick={seleccBoton}>Desconocido</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="caja-filtros">
-                                <p className="fw-bold">Género</p>
-                                <div className="opciones-filtros">
-                                    <button type="button" id="masculino" data-tipo="genero" data-filtro="Male" onClick={seleccBoton}>Masculino</button>
-                                    <button type="button" id="femenino" data-tipo="genero" data-filtro="Female" onClick={seleccBoton}>Femenino</button>
-                                    <button type="button" id="desconocido-2" data-tipo="genero" data-filtro="unknown" onClick={seleccBoton}>Desconocido</button>
-                                </div>
-                                
-                            </div>
+
+                            {card}
+
                         </div>
-
-                        {card}
-
                     </div>
+                    
                 </Fragment>
             )
         }
