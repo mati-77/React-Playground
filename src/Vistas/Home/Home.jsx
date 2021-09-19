@@ -25,6 +25,7 @@ export default function Home() {
                 <section className="proyectos">
                     <Proyecto titulo="Simón Dice" descripcion={simonDice} url="SimonDice/SimonDice.jsx" ruta="/simon" imagen={imagenSimonDice}/>
                     <Proyecto titulo="Buscador" descripcion={buscador} url="Buscador/Buscador.jsx" ruta="/buscador" imagen={imagenBuscador}/>
+                    {/* <Proyecto titulo="Form" descripcion={form} url="Form/Form.jsx" ruta="/form" imagen={imagenForm}/> */}
                 </section>
                 <section className="d-flex justify-content-around mb-4">
                     <Enlace imagen={LinkedinLogo} url="https://www.linkedin.com/in/matias-d-3094b8208" alt="Logo de Linkedin" texto="Linkedin"/>

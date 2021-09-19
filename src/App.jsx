@@ -10,6 +10,7 @@ import NavBar from './NavBar';
 import Home from './Vistas/Home/Home';
 import SimonDice from './Vistas/SimonDice/SimonDice';
 import Buscador from './Vistas/Buscador/Buscador';
+import Form from './Vistas/Form/Form'
 
 
 
@@ -21,6 +22,9 @@ function App() {
       <div>
         <NavBar />
         <Switch>
+          <Route path="/form">
+              <Form />
+          </Route>
           <Route path="/buscador">
               <Buscador />
           </Route>

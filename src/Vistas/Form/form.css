@@ -1,0 +1,58 @@
+.contenedor {
+	min-height: 100vh;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+.formulario {
+    padding-top: 8rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+    width: 60rem;
+	border-radius: .5rem;
+}
+
+.formulario > div {
+    margin-bottom: 2rem;
+}
+
+.formulario label {
+	display: block;
+	font-weight: 600;
+	font-size: 1.4rem;
+	margin-bottom: .5rem;
+	color: #fff;
+}
+
+.formulario input,
+.formulario textarea {
+	width: 100%;
+	border-radius: .5rem;
+	font-size: 1.8rem;
+	padding: 1rem;
+	margin-bottom: .5rem;
+}
+
+.formulario input:focus {
+	outline: none;
+	border: .2rem solid #0085FF;
+}
+
+
+.formulario button {
+	display: block;
+	background: #0085FF;
+	font-weight: 600;
+	border: none;
+	width: 100%;
+	padding: 1rem;
+	border-radius: .5rem;
+	color: #fff;
+	font-size: 1.6rem;
+}
+
+.formulario button:hover {
+	background: #0051ff;
+}

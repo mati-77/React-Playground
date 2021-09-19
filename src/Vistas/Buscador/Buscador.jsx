@@ -175,7 +175,6 @@ export default function Buscador() {
                             <input type="text" placeholder="Nombre..." ref={consulta} onChange={filtrarPorBusqueda} style={{borderRadius : "1rem", borderStyle : "none", paddingLeft : "1rem", paddingRight : "1rem", fontSize : "1.3rem", outline : "none"}}/>
                             <button className="boton-filtros" onClick={desplegarMenuFiltros}>Filtros</button>
                         </nav>
-                        {/* le quite el position relative */}
                         <div className="d-flex flex-wrap justify-content-evenly text-light text-center" style={{overflow : "hidden", paddingTop : "11rem"}}>
                             <div className={`menu-filtros ${mostrarMenu} ${animacionMostrarMenu} ${animacionOcultarMenu}`} onClick={desplegarMenuFiltros}>
                                 <div className="caja-filtros">
@@ -207,7 +206,6 @@ export default function Buscador() {
 
                         </div>
                     </div>
-                    
                 </Fragment>
             )
         }

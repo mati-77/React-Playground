@@ -1,4 +1,4 @@
-
+import React from 'react';
 
 export default function Enlace( {imagen, url, alt, texto} ) {
     return(
