@@ -1,6 +1,9 @@
 import React, { useState, useEffect, Fragment, useRef } from 'react';
 import MensajeError from './MensajeError';
 import MensajeCargando from './MensajeCargando';
+import Personajes from './Personajes';
+import MenuFiltros from './MenuFiltros';
+import FiltroYBusqueda from './FiltroYBusqueda';
 
 import './buscador.css';
 
@@ -32,37 +35,20 @@ export default function Buscador() {
 
     let filtradoPorBusqueda = []
 
-    let card
-
     useEffect(() => {
         fetch("https://rickandmortyapi.com/api/character")
         .then((respuesta) => respuesta.ok ? Promise.resolve(respuesta.json()) : Promise.reject(true))
         .then(data => setPersonajes(data.results))
-        .catch((error) => {
-            setHuboError(error)
-        })
+        .catch((error) => setHuboError(error))
     }, [])
 
-   
-    if(huboError) {
-        return (
-            <MensajeError />
-        )
-    }
+    if (huboError) return <MensajeError />
 
-    if (personajes.length > 0) {
-        cargando.current = false
-    }
+    if (personajes.length > 0) cargando.current = false
     
-    if(cargando.current) {
-        return (
-            <MensajeCargando />
-        )
-    }
+    if(cargando.current) return <MensajeCargando />
 
-    const filtrarPorBusqueda = () => {
-        setBusqueda(consulta.current.value)
-    }
+    const filtrarPorBusqueda = () => setBusqueda(consulta.current.value)
 
     const desplegarMenuFiltros = () => {
         if(mostrarMenu === 'esconder') {
@@ -147,59 +133,24 @@ export default function Buscador() {
             return user.name.toLowerCase().includes(busqueda.toLowerCase())
         })
     }
-
-    if (filtradoPorBusqueda.length > 0) {
-        card = filtradoPorBusqueda.map(personaje => (
-            <div className="tarjeta" key={personaje.id}>
-                <img className="imagen-tarjeta" src={personaje.image} alt={`imagen de ${personaje.name}`} />
-                <div className="descripcion-tarjeta">
-                    <h2>{personaje.name}</h2>
-                    <h5>Status: {personaje.status}</h5>
-                    <h5>Species: {personaje.species}</h5>
-                    <h5>Gender: {personaje.gender}</h5>
-                </div>
-            </div>
-        ))
-    } else {
-        card = <h1>No se encontraron resultados</h1>
-    }
     
     return (
         <Fragment>
             <div>
-                <nav className="d-flex justify-content-evenly filtrar" style={{marginBottom : "1.7rem"}}>
-                    <input type="text" placeholder="Nombre..." ref={consulta} onChange={filtrarPorBusqueda} style={{borderRadius : "1rem", borderStyle : "none", paddingLeft : "1rem", paddingRight : "1rem", fontSize : "1.3rem", outline : "none"}}/>
-                    <button className="boton-filtros" onClick={desplegarMenuFiltros}>Filtros</button>
-                </nav>
+                <FiltroYBusqueda 
+                    consulta={consulta} 
+                    filtrarPorBusqueda={filtrarPorBusqueda} 
+                    desplegarMenuFiltros={desplegarMenuFiltros}
+                />
                 <div className="d-flex flex-wrap justify-content-evenly text-light text-center" style={{overflow : "hidden", paddingTop : "11rem"}}>
-                    <div className={`menu-filtros ${mostrarMenu} ${animacionMostrarMenu} ${animacionOcultarMenu}`} onClick={desplegarMenuFiltros}>
-                        <div className="caja-filtros">
-                            <p className="fw-bold">Status</p>
-                            <div className="opciones-filtros">
-                                <button type="button" id="vivo" data-tipo="status" data-filtro="Alive" onClick={seleccBoton}>Vivo</button>
-                                <button type="button" id="muerto" data-tipo="status" data-filtro="Dead" onClick={seleccBoton}>Muerto</button>
-                                <button type="button" id="desconocido-1" data-tipo="status" data-filtro="unknown" onClick={seleccBoton}>Desconocido</button>
-                            </div>
-                        </div>
-                        <div className="caja-filtros">
-                            <p className="fw-bold">Especie</p>
-                            <div className="opciones-filtros">
-                                <button type="button" id="humana" data-tipo="especie" data-filtro="Human" onClick={seleccBoton}>Humana</button>
-                                <button type="button" id="alien" data-tipo="especie" data-filtro="Alien" onClick={seleccBoton}>Alien</button>
-                            </div>
-                        </div>
-                        <div className="caja-filtros">
-                            <p className="fw-bold">Género</p>
-                            <div className="opciones-filtros">
-                                <button type="button" id="masculino" data-tipo="genero" data-filtro="Male" onClick={seleccBoton}>Masculino</button>
-                                <button type="button" id="femenino" data-tipo="genero" data-filtro="Female" onClick={seleccBoton}>Femenino</button>
-                                <button type="button" id="desconocido-2" data-tipo="genero" data-filtro="unknown" onClick={seleccBoton}>Desconocido</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    {card}
-
+                    <MenuFiltros 
+                        mostrarMenu={mostrarMenu} 
+                        animacionMostrarMenu={animacionMostrarMenu} 
+                        animacionOcultarMenu={animacionOcultarMenu} 
+                        desplegarMenuFiltros={desplegarMenuFiltros} 
+                        seleccBoton={seleccBoton}
+                    />
+                    <Personajes filtradoPorBusqueda={filtradoPorBusqueda}/>
                 </div>
             </div>
         </Fragment>
