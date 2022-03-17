@@ -17,21 +17,22 @@ export default function Buscador() {
     const [animacionOcultarMenu, setAnimacionOcultarMenu] = useState('')
     const [animacionMostrarMenu, setAnimacionMostrarMenu] = useState('')
 
+    /**Referencia al input para buscar por nombre */
     const consulta = useRef()
-    const cargando = useRef(true)
+    /**Referencia al boton del filtro que el usuario elige */
     const nodoGuardado= useRef()
 
     const arrayStatus = useRef([])
     const arrayEspecie = useRef([])
     const arrayGenero = useRef([])
 
-    const [hayFiltroStatus, setHayFiltroStatus] = useState(false)
-    const [hayFiltroEspecie, setHayFiltroEspecie] = useState(false)
-    const [hayFiltroGenero, setHayFiltroGenero] = useState(false)
+    const [hayFiltros, setHayFiltros] = useState(false)
 
-    const [valorFiltroStatus, setValorFiltroStatus] = useState("")
-    const [valorFiltroEspecie, setValorFiltroEspecie] = useState("")
-    const [valorFiltroGenero, setValorFiltroGenero] = useState("")
+    const [valoresDeFiltro, setValoresDeFiltro] = useState({
+        status: "",
+        especie: "",
+        genero: ""
+    })
 
     let filtradoPorBusqueda = []
 
@@ -44,9 +45,7 @@ export default function Buscador() {
 
     if (huboError) return <MensajeError />
 
-    if (personajes.length > 0) cargando.current = false
-    
-    if(cargando.current) return <MensajeCargando />
+    if (personajes.length === 0) return <MensajeCargando />
 
     const filtrarPorBusqueda = () => setBusqueda(consulta.current.value)
 
@@ -64,35 +63,30 @@ export default function Buscador() {
         }
     }
 
-    function aplicarFiltro(tipo, valor) {
-        if (tipo === "status") {
-            arrayStatus.current = personajes.filter(p => p.status.includes(valor))
-            setValorFiltroStatus(valor)
-            setHayFiltroStatus(true)
-        } else if (tipo === "especie") {
-            arrayEspecie.current = personajes.filter(p => p.species.includes(valor))
-            setValorFiltroEspecie(valor)
-            setHayFiltroEspecie(true)
-        } else if (tipo === "genero") {
-            arrayGenero.current = personajes.filter(p => p.gender.includes(valor))
-            setValorFiltroGenero(valor)
-            setHayFiltroGenero(true)
-        }
+    function cambiarValoresDeFiltro(tipo, valor = "") {
+        setValoresDeFiltro(valoresDeFiltro => ({...valoresDeFiltro, [tipo] : valor}) )
     }
 
-    function removerFiltro(tipo) {
+
+    function manejarFiltros(tipo, accion, valor = null) {
         if (tipo === "status") {
-            arrayStatus.current = []
-            setValorFiltroStatus("")
-            setHayFiltroStatus(false)
+            accion === "aplicar" ? arrayStatus.current = personajes.filter(p => p.status.includes(valor)) : arrayStatus.current.length = 0
+            accion === "aplicar" ? cambiarValoresDeFiltro(tipo, valor) : cambiarValoresDeFiltro(tipo)
+            console.log(tipo)
         } else if (tipo === "especie") {
-            arrayEspecie.current = []
-            setValorFiltroEspecie("")
-            setHayFiltroEspecie(false)
+            accion === "aplicar" ? arrayEspecie.current = personajes.filter(p => p.species.includes(valor)) : arrayEspecie.current.length = 0
+            accion === "aplicar" ? cambiarValoresDeFiltro(tipo, valor) : cambiarValoresDeFiltro(tipo)
+            console.log(tipo)
         } else if (tipo === "genero") {
-            arrayGenero.current = []
-            setValorFiltroGenero("")
-            setHayFiltroGenero(false)
+            accion === "aplicar" ? arrayGenero.current = personajes.filter(p => p.gender.includes(valor)) : arrayGenero.current.length = 0
+            accion === "aplicar" ? cambiarValoresDeFiltro(tipo, valor) : cambiarValoresDeFiltro(tipo)
+            console.log(tipo)
+        }
+
+        if (arrayStatus.current.length > 0 || arrayEspecie.current.length > 0 || arrayGenero.current.length > 0) {
+            setHayFiltros(true)
+        } else {
+            setHayFiltros(false)
         }
     }
 
@@ -108,23 +102,23 @@ export default function Buscador() {
         if (elementosArrayFiltrado.length > 0) {
             if (nodoGuardado.current.id !== elementosArrayFiltrado[0].id) {
                 elementosArrayFiltrado[0].classList.remove("filtro-elegido")
-                removerFiltro(elementosArrayFiltrado[0].dataset.tipo)
+                manejarFiltros(elementosArrayFiltrado[0].dataset.tipo, "remover")
                 nodoGuardado.current.classList.add("filtro-elegido")
-                aplicarFiltro(nodoGuardado.current.dataset.tipo, nodoGuardado.current.dataset.filtro)
+                manejarFiltros(nodoGuardado.current.dataset.tipo, "aplicar", nodoGuardado.current.dataset.filtro)
             } else {
                 nodoGuardado.current.classList.remove("filtro-elegido")
-                removerFiltro(nodoGuardado.current.dataset.tipo)
+                manejarFiltros(nodoGuardado.current.dataset.tipo, "remover")
             }
         } else {
             nodoGuardado.current.classList.add("filtro-elegido")
-            aplicarFiltro(nodoGuardado.current.dataset.tipo, nodoGuardado.current.dataset.filtro)
+            manejarFiltros(nodoGuardado.current.dataset.tipo, "aplicar", nodoGuardado.current.dataset.filtro)
         }
     }
 
-    if (hayFiltroStatus || hayFiltroEspecie || hayFiltroGenero) {
+    if (hayFiltros) {
         let arraysFiltradosPorBotones = [...arrayStatus.current, ...arrayEspecie.current, ...arrayGenero.current]
         let eliminarDuplicados = [...new Set(arraysFiltradosPorBotones) ]
-        let filtroFinal = eliminarDuplicados.filter((elemento) => elemento.status.includes(valorFiltroStatus) && elemento.species.includes(valorFiltroEspecie) && elemento.gender.includes(valorFiltroGenero))
+        let filtroFinal = eliminarDuplicados.filter((elemento) => elemento.status.includes(valoresDeFiltro.status) && elemento.species.includes(valoresDeFiltro.especie) && elemento.gender.includes(valoresDeFiltro.genero))
         filtradoPorBusqueda = filtroFinal.filter((user) => {
             return user.name.toLowerCase().includes(busqueda.toLowerCase())
         })
