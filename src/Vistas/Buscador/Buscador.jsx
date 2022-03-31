@@ -22,16 +22,18 @@ export default function Buscador() {
     /**Referencia al boton del filtro que el usuario elige */
     const nodoGuardado= useRef()
 
-    const arrayStatus = useRef([])
-    const arrayEspecie = useRef([])
-    const arrayGenero = useRef([])
+    const arraysFiltros = useRef({
+        status: [],
+        species: [],
+        gender: []
+    })
 
     const [hayFiltros, setHayFiltros] = useState(false)
 
     const [valoresDeFiltro, setValoresDeFiltro] = useState({
         status: "",
-        especie: "",
-        genero: ""
+        species: "",
+        gender: ""
     })
 
     let filtradoPorBusqueda = []
@@ -41,6 +43,9 @@ export default function Buscador() {
         .then((respuesta) => respuesta.ok ? Promise.resolve(respuesta.json()) : Promise.reject(true))
         .then(data => setPersonajes(data.results))
         .catch((error) => setHuboError(error))
+
+        
+
     }, [])
 
     if (huboError) return <MensajeError />
@@ -67,58 +72,55 @@ export default function Buscador() {
         setValoresDeFiltro(valoresDeFiltro => ({...valoresDeFiltro, [tipo] : valor}) )
     }
 
-
-    function manejarFiltros(tipo, accion, valor = null) {
-        if (tipo === "status") {
-            accion === "aplicar" ? arrayStatus.current = personajes.filter(p => p.status.includes(valor)) : arrayStatus.current.length = 0
-            accion === "aplicar" ? cambiarValoresDeFiltro(tipo, valor) : cambiarValoresDeFiltro(tipo)
-            console.log(tipo)
-        } else if (tipo === "especie") {
-            accion === "aplicar" ? arrayEspecie.current = personajes.filter(p => p.species.includes(valor)) : arrayEspecie.current.length = 0
-            accion === "aplicar" ? cambiarValoresDeFiltro(tipo, valor) : cambiarValoresDeFiltro(tipo)
-            console.log(tipo)
-        } else if (tipo === "genero") {
-            accion === "aplicar" ? arrayGenero.current = personajes.filter(p => p.gender.includes(valor)) : arrayGenero.current.length = 0
-            accion === "aplicar" ? cambiarValoresDeFiltro(tipo, valor) : cambiarValoresDeFiltro(tipo)
-            console.log(tipo)
+    function aplicarQuitarFiltro(tipo, accion, valor = null) {
+        if (accion === "aplicar") {
+            arraysFiltros.current[tipo] = personajes.filter(p => p[tipo].includes(valor))
+            cambiarValoresDeFiltro(tipo, valor)
+        } else {
+            arraysFiltros.current[tipo].length = 0
+            cambiarValoresDeFiltro(tipo)
         }
 
-        if (arrayStatus.current.length > 0 || arrayEspecie.current.length > 0 || arrayGenero.current.length > 0) {
+        if (arraysFiltros.current.status.length > 0 || arraysFiltros.current.species.length > 0 || arraysFiltros.current.gender.length > 0) {
             setHayFiltros(true)
         } else {
             setHayFiltros(false)
         }
     }
 
+
     function seleccBoton(e) {
         e.stopPropagation()
         nodoGuardado.current = document.getElementById(e.target.id)
 
-        let elementos = document.querySelectorAll(`[data-tipo=${nodoGuardado.current.dataset.tipo}]`)
-        let elementosArray = [...elementos]
+        let elementosArray = [...(document.querySelectorAll(`[data-tipo=${nodoGuardado.current.dataset.tipo}]`))]
+        console.log(elementosArray)
 
-        let elementosArrayFiltrado = elementosArray.filter(afiltrar => afiltrar.classList.contains("filtro-elegido"))
+        let elementoEncontrado = elementosArray.find(elemento => elemento.classList.contains("filtro-elegido"))
 
-        if (elementosArrayFiltrado.length > 0) {
-            if (nodoGuardado.current.id !== elementosArrayFiltrado[0].id) {
-                elementosArrayFiltrado[0].classList.remove("filtro-elegido")
-                manejarFiltros(elementosArrayFiltrado[0].dataset.tipo, "remover")
+        console.log(elementoEncontrado)
+        console.log(nodoGuardado.current)
+
+        if (elementoEncontrado) {
+            if (nodoGuardado.current.id !== elementoEncontrado.id) {
+                elementoEncontrado.classList.remove("filtro-elegido")
+                aplicarQuitarFiltro(elementoEncontrado.dataset.tipo, "remover")
                 nodoGuardado.current.classList.add("filtro-elegido")
-                manejarFiltros(nodoGuardado.current.dataset.tipo, "aplicar", nodoGuardado.current.dataset.filtro)
+                aplicarQuitarFiltro(nodoGuardado.current.dataset.tipo, "aplicar", nodoGuardado.current.dataset.filtro)
             } else {
                 nodoGuardado.current.classList.remove("filtro-elegido")
-                manejarFiltros(nodoGuardado.current.dataset.tipo, "remover")
+                aplicarQuitarFiltro(nodoGuardado.current.dataset.tipo, "remover")
             }
         } else {
             nodoGuardado.current.classList.add("filtro-elegido")
-            manejarFiltros(nodoGuardado.current.dataset.tipo, "aplicar", nodoGuardado.current.dataset.filtro)
+            aplicarQuitarFiltro(nodoGuardado.current.dataset.tipo, "aplicar", nodoGuardado.current.dataset.filtro)
         }
     }
 
     if (hayFiltros) {
-        let arraysFiltradosPorBotones = [...arrayStatus.current, ...arrayEspecie.current, ...arrayGenero.current]
+        let arraysFiltradosPorBotones = [...arraysFiltros.current.status, ...arraysFiltros.current.species, ...arraysFiltros.current.gender]
         let eliminarDuplicados = [...new Set(arraysFiltradosPorBotones) ]
-        let filtroFinal = eliminarDuplicados.filter((elemento) => elemento.status.includes(valoresDeFiltro.status) && elemento.species.includes(valoresDeFiltro.especie) && elemento.gender.includes(valoresDeFiltro.genero))
+        let filtroFinal = eliminarDuplicados.filter((elemento) => elemento.status.includes(valoresDeFiltro.status) && elemento.species.includes(valoresDeFiltro.species) && elemento.gender.includes(valoresDeFiltro.gender))
         filtradoPorBusqueda = filtroFinal.filter((user) => {
             return user.name.toLowerCase().includes(busqueda.toLowerCase())
         })

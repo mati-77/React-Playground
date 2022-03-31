@@ -14,16 +14,16 @@ export default function MenuFiltros ({ mostrarMenu, animacionMostrarMenu, animac
             <div className="caja-filtros">
                 <p className="fw-bold">Especie</p>
                 <div className="opciones-filtros">
-                    <button type="button" id="humana" data-tipo="especie" data-filtro="Human" onClick={seleccBoton}>Humana</button>
-                    <button type="button" id="alien" data-tipo="especie" data-filtro="Alien" onClick={seleccBoton}>Alien</button>
+                    <button type="button" id="humana" data-tipo="species" data-filtro="Human" onClick={seleccBoton}>Humana</button>
+                    <button type="button" id="alien" data-tipo="species" data-filtro="Alien" onClick={seleccBoton}>Alien</button>
                 </div>
             </div>
             <div className="caja-filtros">
                 <p className="fw-bold">Género</p>
                 <div className="opciones-filtros">
-                    <button type="button" id="masculino" data-tipo="genero" data-filtro="Male" onClick={seleccBoton}>Masculino</button>
-                    <button type="button" id="femenino" data-tipo="genero" data-filtro="Female" onClick={seleccBoton}>Femenino</button>
-                    <button type="button" id="desconocido-2" data-tipo="genero" data-filtro="unknown" onClick={seleccBoton}>Desconocido</button>
+                    <button type="button" id="masculino" data-tipo="gender" data-filtro="Male" onClick={seleccBoton}>Masculino</button>
+                    <button type="button" id="femenino" data-tipo="gender" data-filtro="Female" onClick={seleccBoton}>Femenino</button>
+                    <button type="button" id="desconocido-2" data-tipo="gender" data-filtro="unknown" onClick={seleccBoton}>Desconocido</button>
                 </div>
             </div>
         </div> 
