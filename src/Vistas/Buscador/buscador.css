@@ -1,13 +1,25 @@
 
 /*Estilos para la barra de busqueda*/
 
-.filtrar {
+.barra-busqueda {
     position: fixed;
+    display: flex;
+    justify-content: space-evenly;
     top: 5rem;
     background: #282c34;
     width: 100%;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    margin-bottom: 1.7rem;
+}
+
+.buscar-por-nombre {
+    border-radius: 1rem;
+    border-style: none;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.3rem;
+    outline: none;
 }
 
 
@@ -120,7 +132,17 @@
     color: #ffffff;
 }
 
-/*Estilos para las tarjetas de los personajes*/
+/*Estilos para las tarjetas de los personajes y su contenedor*/
+
+.contenedor-tarjetas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    color: #ffffff;
+    text-align: center;
+    overflow: hidden;
+    padding-top: 11rem;
+}
 
 .tarjeta {
     max-width: 20rem;

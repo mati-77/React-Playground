@@ -10,18 +10,26 @@ import './buscador.css';
 export default function Buscador() {
 
     const [personajes, setPersonajes] = useState([])
+
+    /**
+     * Este estado se usará para filtrar personajes segun el nombre
+     * escrito por el usuario.
+     */
     const [busqueda, setBusqueda] = useState('')
+    
     const [huboError, setHuboError] = useState(false)
 
     const [mostrarMenu, setMostrarMenu] = useState('esconder')
     const [animacionOcultarMenu, setAnimacionOcultarMenu] = useState('')
     const [animacionMostrarMenu, setAnimacionMostrarMenu] = useState('')
 
-    /**Referencia al input para buscar por nombre */
-    const consulta = useRef()
     /**Referencia al boton del filtro que el usuario elige */
     const nodoGuardado= useRef()
 
+    /**
+     * Por cada tipo de filtro aplicado, se llenará un array con los personajes
+     * que coincidan con lo que eligió el usuario.
+     */
     const arraysFiltros = useRef({
         status: [],
         species: [],
@@ -30,12 +38,20 @@ export default function Buscador() {
 
     const [hayFiltros, setHayFiltros] = useState(false)
 
+
+    /**
+     * Este estado se usará para definir el array final de personajes filtrados mediante opciones de filtro.
+     */
     const [valoresDeFiltro, setValoresDeFiltro] = useState({
         status: "",
         species: "",
         gender: ""
     })
 
+    /**
+     * Si el usuario busca personajes por nombre, habiendo ademas elegido filtros o no,
+     * los resultados se guardarán en este array.
+     */
     let filtradoPorBusqueda = []
 
     useEffect(() => {
@@ -43,18 +59,25 @@ export default function Buscador() {
         .then((respuesta) => respuesta.ok ? Promise.resolve(respuesta.json()) : Promise.reject(true))
         .then(data => setPersonajes(data.results))
         .catch((error) => setHuboError(error))
-
-        
-
     }, [])
 
     if (huboError) return <MensajeError />
 
     if (personajes.length === 0) return <MensajeCargando />
 
-    const filtrarPorBusqueda = () => setBusqueda(consulta.current.value)
+    /**
+     * Función que modifica el estado de busqueda, que se usará
+     * para filtrar personajes segun el nombre escrito por el usuario.
+     * @param {Event} e 
+     */
+    function filtrarPorBusqueda(e){
+        setBusqueda(e.target.value)
+    } 
 
-    const desplegarMenuFiltros = () => {
+    /**
+     * Función que se encarga de mostrar u ocultar el menú de filtros
+     */
+    function desplegarMenuFiltros() {
         if(mostrarMenu === 'esconder') {
             setMostrarMenu('')
             setAnimacionOcultarMenu('')
@@ -68,10 +91,26 @@ export default function Buscador() {
         }
     }
 
+    /**
+     * Función que modifica el estado de valoresDeFiltro según el tipo de filtro y el valor de filtrado recibidos.
+     * @param {String} tipo El tipo de filtro a aplicar.
+     * @param {String} [valor] Valor que se usará para filtrar. Es un string vacío por defecto.
+     */
     function cambiarValoresDeFiltro(tipo, valor = "") {
         setValoresDeFiltro(valoresDeFiltro => ({...valoresDeFiltro, [tipo] : valor}) )
     }
 
+    /**
+     * Función que rellena o vacía los arrays que se usarán
+     * para el filtrado inicial por opciones de filtro, y dicta el cambio de
+     * valoresDeFiltro, segun la acción recibida.
+     * @param {String} tipo Define el array a rellenar o vaciar y el tipo
+     * @param {String} accion Definirá qué se hace con el array y qué 
+     * argumentos recibirá la función cambiarValoresDeFiltro.
+     * @param {String|null} [valor] Valor elegido por el usuario, 
+     * que se usará para filtrar a los personajes obtenidos inicialmente a traves de la API.
+     * 
+     */
     function aplicarQuitarFiltro(tipo, accion, valor = null) {
         if (accion === "aplicar") {
             arraysFiltros.current[tipo] = personajes.filter(p => p[tipo].includes(valor))
@@ -89,17 +128,19 @@ export default function Buscador() {
     }
 
 
+    /**
+     * Función que se encarga del resaltado de las opciones de 
+     * filtro elegidas en el menú, e invoca a la función aplicarQuitarFiltro.
+     * @param {Event} e 
+     */
     function seleccBoton(e) {
         e.stopPropagation()
+
         nodoGuardado.current = document.getElementById(e.target.id)
 
         let elementosArray = [...(document.querySelectorAll(`[data-tipo=${nodoGuardado.current.dataset.tipo}]`))]
-        console.log(elementosArray)
 
         let elementoEncontrado = elementosArray.find(elemento => elemento.classList.contains("filtro-elegido"))
-
-        console.log(elementoEncontrado)
-        console.log(nodoGuardado.current)
 
         if (elementoEncontrado) {
             if (nodoGuardado.current.id !== elementoEncontrado.id) {
@@ -134,11 +175,10 @@ export default function Buscador() {
         <Fragment>
             <div>
                 <FiltroYBusqueda 
-                    consulta={consulta} 
                     filtrarPorBusqueda={filtrarPorBusqueda} 
                     desplegarMenuFiltros={desplegarMenuFiltros}
                 />
-                <div className="d-flex flex-wrap justify-content-evenly text-light text-center" style={{overflow : "hidden", paddingTop : "11rem"}}>
+                <div className="contenedor-tarjetas">
                     <MenuFiltros 
                         mostrarMenu={mostrarMenu} 
                         animacionMostrarMenu={animacionMostrarMenu} 
